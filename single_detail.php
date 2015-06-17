@@ -166,14 +166,18 @@ session_start();
 		                    	<div class="col-sm-12">
 		                    		<div class="cause-image">
 		                    			<img src="images/<?php echo $product_image; ?>" alt="">
-		                    		</div>
+		                    		</div>		  
 		                    		<div class="cause-content">
+		                    			<form action="buy.php" method="get">
 		                    			<div class="cause-meta">
 		                    				<!--<span><i class="fa fa-user"></i> Carla Cruz</span>-->
-		                    				<span><i class="fa fa-calendar"></i><input type="number" name="number" value="1" style="width:50px;padding-top:0px!important;padding-bottom:0px!important;"></span>
+                                                            <span><i class="fa fa-calendar"></i><input type="number" name="product_quantity_units" id="product_quantity_units" value="1" onchange="get_quantity(this.value)" style="width:50px;padding-top:0px!important;padding-bottom:0px!important;"></span>
 		                    				<span><i class="fa fa-flag"></i> $<?php echo $product_price; ?></span>
-		                    				<a href="#donate-modal" data-toggle="modal" class="btn btn-accent">Buy Now</a>
+		                    									<input type="hidden" id="product_id" name="product_id" value='<?php echo $product_id; ?>'>	
+		                    									<input type="hidden" id="buyer_id" name="buyer_id" value='<?php echo $_SESSION['user_id']; ?>'>	
+                                                                <input type="submit" value="Buy" data-toggle="modal" class="btn btn-accent">
 		                    			</div>
+		                    		</form>
 		                    			<div class="cause-holder">
 											<div class="clearfix">
 												<!--<span class="raised pull-left">Raised: $2,400</span>
