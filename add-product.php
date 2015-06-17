@@ -136,7 +136,7 @@ if(isset($_POST['insert'])) {
 				<div class="container">
 					<div class="row">
 						<div class="col-sm-12">
-							<ul class="main-menu">
+							<?php require_once 'menu.php'; ?>
 								<li class="active"><a href="index.html">Home</a></li>
 								<li><a href="#">Seeds</a>
 									<ul>
