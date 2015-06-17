@@ -22,7 +22,6 @@ require_once 'include/connect.php';
 				$product_quantity_units);";
 		if(mysql_query($query)) {
 			echo '<script type="text/javascript"> alert("Order request successfully to te Admin!"); </script>';
-			sleep(2);
                         header("location:javascript://history.go(-1)");
 		}
 	
