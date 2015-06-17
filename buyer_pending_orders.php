@@ -1,4 +1,53 @@
 <?php 
+include "include/connect.php";
+?>
+<?php
+	if(isset($_GET['del_id'])) {
+		$delete_id = $_GET['del_id'];
+		
+		$sql = "DELETE FROM seller_registration WHERE seller_registration_id='$delete_id'";
+		
+			if(mysql_query($sql)) {
+				echo '<script type="text/javascript"> alert("Seller Registration deleted!");</script>';
+			}
+	}
+?>
+<?php
+if(isset($_POST['approve'])) {
+	$appr_id = $_POST['appr'];
+	
+	$sql_insert = "INSERT INTO approved_seller(approved_seller_email, approved_seller_pwd, approved_seller_name, approved_seller_contact_no, position)
+					SELECT seller_registration_email, seller_registration_pwd, seller_registration_name, seller_registration_contact_no, position FROM seller_registration 
+					WHERE seller_registration_id IN(";
+		
+		foreach($appr_id as $a_id) {
+			
+			$sql_insert.=$a_id.",";
+		
+		}
+		$sql_insert2 = rtrim($sql_insert, ',');
+		$sql_insert2.= ")";
+		
+		if(mysql_query($sql_insert2)) {
+			
+			$query2 = "DELETE FROM seller_registration WHERE seller_registration_id IN(";
+		
+				foreach($appr_id as $d_id) {
+			
+					$query2.=$d_id.",";
+		
+				}
+				$query3 = rtrim($query2, ',');
+				$query3.= ")";
+				
+				if(mysql_query($query3)){
+					echo '<script type="text/javascript"> alert("Seller Registration Approved!");</script>';
+				}
+			
+		}
+}
+?>
+<?php 
 session_start(); 
 if(!isset($_SESSION['admin_position'])) {
 	header("Location:index.php");
@@ -145,10 +194,7 @@ if(!isset($_SESSION['admin_position'])) {
                     		<div class="widget">
                     			<h4 class="widget-title">Menu</h4>
                     			<ul class="sidebar-list">
-                    				<li><a href="buyer_pending_orders.php">Buyer Pending Orders</a></li>
-                    				<li><a href="view_register_seller.php">New Seller</a></li>
-									<li><a href="approved_seller.php">Approved Seller</a></li>
-									<li><a href="view_register_product.php">New Product</a></li>
+                    				<li><a href="view_register_product.php">New Product</a></li>
 									<li><a href="admin_approved_product.php">Approved Product</a></li>
 									<li><a href="add-resource.php">Add Resource</a></li>
                     				<li><a href="update-resource.php">Update Resource</a></li>
@@ -159,6 +205,7 @@ if(!isset($_SESSION['admin_position'])) {
 									<li><a href="add-category.php">Add Category</a></li>
 									<li><a href="update-category.php">Update Category</a></li>
 									<li><a href="delete_category.php">Delete Category</a></li>
+									
                     				<!--<li><a href="#">Volunteer</a></li>
                     				<li><a href="#">Nonprofit</a></li>-->
                     			</ul>
@@ -171,33 +218,53 @@ if(!isset($_SESSION['admin_position'])) {
 					<div class="col-md-9">
                 		<div class="main-content blog">
 		                    <div class="row">
-		                    	<div class="col-sm-12">
-		                    		<div class="blog-post">
-		                    			<h1 style="text-align:center;">Welcome <?php echo $_SESSION['admin_position'];?></h1>
-										
-										<!--<div class="blog-image">
-		                    				<a href="blog-single.html">
-		                    					<img src="assets/images/blog/6.jpg" alt="">
-		                    				</a>
-		                    			</div>
-		                    			<div class="blog-content">
-		                    				<div class="blog-meta">
-		                    					<span><a href="#"><i class="fa fa-pencil"></i>John Doe</a></span>
-		                    					<span><a href="#"><i class="fa fa-calendar-o"></i>24 July 2015</a></span>
-		                    					<span><a href="#"><i class="fa fa-folder-open"></i>Community, Events</a></span>
-		                    					<span><a href="#"><i class="fa fa-comments"></i>3 Comments</a></span>
-		                    				</div>
-		                    				<h4><a href="blog-single.html">The Stream of the Dying</a></h4>
-		                    				<span class="line-seperator"></span>
-		                    				<p>Trust fund retro American Apparel, master cleanse leggings DIY iPhone food truck. Church-key slow-carb squid craft beer asymmetrical health goth biodiesel chillwave gastropub. Schlitz ethical crucifix, four loko iPhone tousled mixtape Vice retro hashtag tattooed art party. Post-ironic Bushwick tattooed raw denim.</p>
-		                    				<a href="blog-single.html">Continue Reading &rarr;</a>
-		                    			</div>-->
-										</div>
-										
-										
-										
-									</div>
-								</div>
+								<h2>Buyer Pending Orders</h2><br />
+								<form method="POST" action="view_register_seller.php">
+								<table border="1" style="width:100%;">
+								<!--<th style="text-align:center;">Approve</th>-->
+								<th style="text-align:center;">SNo</th>
+								<th style="text-align:center;">Buyer</th>
+								<th style="text-align:center;">Product</th>
+								<th style="text-align:center;">Seller</th>
+								<th style="text-align:center;">Quantity</th>
+								<th style="text-align:center;">Price</th>
+								<!--<th style="text-align:center;">Product Price</th>
+								<th style="text-align:center;">Product Description</th>
+								<th style="text-align:center;">Product Status</th>
+								<th style="text-align:center;">Action</th>-->
+
+
+								<?php 
+									$query = "SELECT * FROM pending_orders";
+									
+									if($query_run = mysql_query($query)) {
+										$count=1;
+										while($query_rows = mysql_fetch_assoc($query_run)) {
+											$buyer=$query_rows['Buyer'];
+											$product = $query_rows['Product'];
+											$seller = $query_rows['Seller'];
+											$quantity = $query_rows['Quantity'];
+											$price = $query_rows['Price'];
+											
+											
+											echo '<tr style="text-align:center">';
+											//echo '<td><input type="checkbox" name="appr[]" value="'.$sid.'"></td>';
+											echo '<td>'.$count.'</td><td>'.$buyer.'</td><td>'.$product.'</td><td>'.$seller.'</td><td>'.$quantity.'</td><td>'.$price.'</td>';
+											//echo '<td><a href="view_register_seller.php?del_id='.$sid.'">Delete</a></td>';
+											echo '</tr>';
+											$count++;
+											
+										}
+									}
+									
+								?>
+
+								</table>
+
+								<br /><br />
+								<input type="submit" value="Approve" name="approve" class="btn btn-accent">
+								</form>
+							</div>
 		                    
 	                    </div>
                 	</div>
