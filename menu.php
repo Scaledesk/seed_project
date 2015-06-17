@@ -1,22 +1,15 @@
 <ul class="main-menu">
                                 <li class="active"><a href="index.html">Home</a></li>
+                                <li><a href="#">About Us</a></li>
                                 <li><a href="#">Seeds</a>
                                     <ul>
-                                        <li><a href="#">Causes Grid</a></li>
-                                        <li><a href="#">Causes List</a></li>
-                                        <li><a href="#">Cause Details</a></li>
-                                    </ul>
-                                </li>
-                                <li><a href="#">Thoughtful Level</a>
-                                    <ul>
-                                        <li><a href="#">Events List</a></li>
-                                        <li><a href="#">Event Details</a></li>
+                                        <li><a href="#">Demo Category</a></li>
                                     </ul>
                                 </li>
                                 <li><a href="#">Calculators</a>
                                     <ul>
-                                        <li><a href="#">Blog Classic</a></li>
-                                        <li><a href="#">Blog Post</a></li>
+                                        <li><a href="#">Demo</a></li>
+                                        <li><a href="#">Demo</a></li>
                                     </ul>
                                 </li>
                                 <li><a href="#">Resources</a>
@@ -34,6 +27,9 @@
                                 </li>
                                 <li><a href="#">Industries</a></li>
                                 <li class="active"><a href="#">Suppliers</a></li>
+                                <li class="active"><a href="#">Flyers & news</a></li>
                                 <li class="active"><a href="#">Book-Buy</a></li>
+                                <li class="active"><a href="#">Members</a></li>
                                 <li class="active"><a href="#">Contact Us</a></li>
+
                             </ul>
