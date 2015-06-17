@@ -174,7 +174,8 @@ session_start();
                                                             <span><i class="fa fa-calendar"></i><input type="number" name="product_quantity_units" id="product_quantity_units" value="1" onchange="get_quantity(this.value)" style="width:50px;padding-top:0px!important;padding-bottom:0px!important;"></span>
 		                    				<span><i class="fa fa-flag"></i> $<?php echo $product_price; ?></span>
 		                    									<input type="hidden" id="product_id" name="product_id" value='<?php echo $product_id; ?>'>	
-		                    									<input type="hidden" id="buyer_id" name="buyer_id" value='<?php echo $_SESSION['user_id']; ?>'>	
+		                    									<input type="hidden" id="buyer_id" name="buyer_id" value='<?php echo $_SESSION['user_id']; ?>'>
+                                                                                                        <input type="hidden" id="price" name="price" value='<?php echo $product_price; ?>'>
                                                                 <input type="submit" value="Buy" data-toggle="modal" class="btn btn-accent">
 		                    			</div>
 		                    		</form>
