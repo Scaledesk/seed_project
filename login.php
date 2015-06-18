@@ -8,16 +8,16 @@ if(isset($_POST['submit'])) {
 	$password = $_POST['password'];
 	$hpass = md5($password);
 	
-	$query = "SELECT * FROM seller_registration WHERE seller_registration_email='$email' AND seller_registration_pwd='$hpass'";
+	$query = "SELECT * FROM approved_seller WHERE approved_seller_email='$email' AND approved_seller_pwd='$hpass'";
 	
 	if($query_run = @mysql_query($query)){
 		
 		if(mysql_num_rows($query_run)>0) {
 			while($query_row = mysql_fetch_assoc($query_run)) {
 						$psn = $query_row['position'];
-						$seller_id = $query_row['seller_registration_id'];
-						$email = $query_row['seller_registration_email'];
-						$name = $query_row['seller_registration_name'];
+						$seller_id = $query_row['approved_seller_id'];
+						$email = $query_row['approved_seller_email'];
+						$name = $query_row['approved_seller_name'];
 							if($psn == 'seller') {
 								$_SESSION['position'] = $psn;
 								$_SESSION['email'] = $email;
