@@ -16,9 +16,9 @@ include "include/connect.php";
 if(isset($_POST['approve'])) {
 	$appr_id = $_POST['appr'];
 	
-	$sql_insert = "INSERT INTO approved_seller(approved_seller_email, approved_seller_pwd, approved_seller_name, approved_seller_contact_no, position)
-					SELECT seller_registration_email, seller_registration_pwd, seller_registration_name, seller_registration_contact_no, position FROM seller_registration 
-					WHERE seller_registration_id IN(";
+	$sql_insert = "INSERT INTO buyer_approved_order(buyer_id, product_id, product_quantity_units, price)
+					SELECT buyer_id, product_id, product_quantity_units, price FROM buyer_pending_order 
+					WHERE id IN(";
 		
 		foreach($appr_id as $a_id) {
 			
@@ -27,10 +27,9 @@ if(isset($_POST['approve'])) {
 		}
 		$sql_insert2 = rtrim($sql_insert, ',');
 		$sql_insert2.= ")";
-		
 		if(mysql_query($sql_insert2)) {
 			
-			$query2 = "DELETE FROM seller_registration WHERE seller_registration_id IN(";
+			$query2 = "DELETE FROM buyer_pending_order WHERE id IN(";
 		
 				foreach($appr_id as $d_id) {
 			
@@ -219,13 +218,15 @@ if(!isset($_SESSION['admin_position'])) {
                 		<div class="main-content blog">
 		                    <div class="row">
 								<h2>Buyer Pending Orders</h2><br />
-								<form method="POST" action="view_register_seller.php">
+								<form method="POST" action="buyer_pending_orders.php">
 								<table border="1" style="width:100%;">
-								<!--<th style="text-align:center;">Approve</th>-->
+								<th style="text-align:center;">Approve</th>
 								<th style="text-align:center;">SNo</th>
 								<th style="text-align:center;">Buyer</th>
 								<th style="text-align:center;">Product</th>
 								<th style="text-align:center;">Seller</th>
+								<th style="text-align:center;">Seller Email</th>
+								<th style="text-align:center;">Seller Contact No</th>
 								<th style="text-align:center;">Quantity</th>
 								<th style="text-align:center;">Price</th>
 								<!--<th style="text-align:center;">Product Price</th>
@@ -240,17 +241,21 @@ if(!isset($_SESSION['admin_position'])) {
 									if($query_run = mysql_query($query)) {
 										$count=1;
 										while($query_rows = mysql_fetch_assoc($query_run)) {
+											$id=$query_rows['id'];
 											$buyer=$query_rows['Buyer'];
 											$product = $query_rows['Product'];
 											$seller = $query_rows['Seller'];
+											$seller_email = $query_rows['Seller_Email'];
+											$seller_mob = $query_rows['Seller_Mob'];
 											$quantity = $query_rows['Quantity'];
 											$price = $query_rows['Price'];
+
 											
 											
 											echo '<tr style="text-align:center">';
-											//echo '<td><input type="checkbox" name="appr[]" value="'.$sid.'"></td>';
-											echo '<td>'.$count.'</td><td>'.$buyer.'</td><td>'.$product.'</td><td>'.$seller.'</td><td>'.$quantity.'</td><td>'.$price.'</td>';
-											//echo '<td><a href="view_register_seller.php?del_id='.$sid.'">Delete</a></td>';
+											echo '<td><input type="checkbox" name="appr[]" value="'.$id.'"></td>';
+											echo '<td>'.$count.'</td><td>'.$buyer.'</td><td>'.$product.'</td><td>'.$seller.'</td><td>'.$seller_email.'</td><td>'.$seller_mob.'</td><td>'.$quantity.'</td><td>'.$price.'</td>';
+											//echo '<td><a href="buyer_pending_orders.php?del_id='.$sid.'">Delete</a></td>';
 											echo '</tr>';
 											$count++;
 											
