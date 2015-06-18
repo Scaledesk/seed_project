@@ -236,7 +236,7 @@ if(!isset($_SESSION['admin_position'])) {
 
 
 								<?php 
-									$query = "SELECT * FROM pending_orders";
+									$query = "SELECT id,Buyer,Product,Seller,Seller_Email,Seller_Mob,Quantity,Price FROM pending_orders";
 									
 									if($query_run = mysql_query($query)) {
 										$count=1;

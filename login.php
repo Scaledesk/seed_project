@@ -19,7 +19,6 @@ if(isset($_POST['submit'])) {
 						$email = $query_row['seller_registration_email'];
 						$name = $query_row['seller_registration_name'];
 							if($psn == 'seller') {
-								
 								$_SESSION['position'] = $psn;
 								$_SESSION['email'] = $email;
 								$_SESSION['name'] = $name;
