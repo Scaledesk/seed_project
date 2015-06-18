@@ -1,5 +1,5 @@
 <ul class="main-menu">
-                                <li class="active"><a href="index.html">Home</a></li>
+                                <li class="active"><a href="index.php">Home</a></li>
                                 <li><a href="#">About Us</a></li>
                                 <li><a href="#">Seeds</a>
                                     <ul>
