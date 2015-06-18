@@ -2,7 +2,66 @@
 include "include/connect.php";
 
 if(isset($_POST['submit'])) {
+	$check=true;
+
 	$email = mysql_real_escape_string($_POST['email']);
+	$query = "SELECT * FROM approved_seller WHERE approved_seller_email='$email'";
+	
+	if($query_run = @mysql_query($query)){
+		
+		if(mysql_num_rows($query_run)>0) {
+			/*echo "Sorry, you are already registered as Seller and your are approved seller";
+			echo "try again with different email address";
+			header("Location:index.php");*/
+			echo '
+			<script type="text/javascript">
+				alert("Sorry, you are already registered as Seller and your are approved seller,try again with different email address");
+				window.location.href="index.php";
+			</script>
+		';	
+			$check=false;
+		}
+	}
+	$query = "SELECT * FROM seller_registration WHERE seller_registration_email='$email'";
+	
+	if($query_run = @mysql_query($query)){
+		
+		if(mysql_num_rows($query_run)>0) {
+			/*echo "Sorry, you are already registered as Seller and your are not approved seller yet. Wait for approval or cancellation of request. Then try again";
+			echo "try again with different email address";
+			header("Location:index.php");*/
+			echo '
+			<script type="text/javascript">
+				alert("Sorry, you are already registered as Seller and your are not approved seller yet. Wait for approval or cancellation of request. Then try again<br/>or try again with different email address");
+				window.location.href="index.php";
+			</script>
+		';
+			$check=false;
+		}
+	}
+	
+	$query = "SELECT * FROM user_registration WHERE user_registration_email='$email'";
+
+
+	if($query_run = @mysql_query($query)){
+		
+		if(mysql_num_rows($query_run)>0) {
+			/*echo "Sorry, you are already registered as Buyer";
+			echo "try again with different email address";
+			header("Location:index.php");*/
+			echo '
+			<script type="text/javascript">
+				alert("Sorry, you are already registered as Buyer, try again with different email address");
+				window.location.href="index.php";
+			</script>
+		';
+			$check=false;
+		}
+	}
+
+/* ------------------------User registration--------------------------------------*/
+	if ($check) {
+		$email = mysql_real_escape_string($_POST['email']);
 	$pass = mysql_real_escape_string($_POST['password']);
 	$hash_pass = md5($pass);
 	$name = mysql_real_escape_string($_POST['name']);
@@ -19,9 +78,16 @@ if(isset($_POST['submit'])) {
 			</script>
 		';
 	} else if(mysql_error()) {
-		echo "Email Allready Exist";
+		echo '
+			<script type="text/javascript">
+				alert("Some error Occured!!!!Try Again");
+				window.location.href="index.php";
+			</script>
+		';
 	}
+}
 	
+/* !------------------------User registration--------------------------------------*/	
 }
 ?>
 <!--<!DOCTYPE html>
@@ -50,7 +116,7 @@ if(isset($_POST['submit'])) {
 		if (input.value != document.getElementById('password').value) {
 			input.setCustomValidity('Password Must be Matching.');
 		} else {
-		// input is valid -- reset the error message
+		// input is valid  reset the error message
 		input.setCustomValidity('');
 		}
 	}
