@@ -21,8 +21,9 @@ if ($buyer_id=$_GET['buyer_id']) {
 				$product_quantity_units,
                 $price);";
 		if(mysql_query($query)) {
-			echo '<script type="text/javascript"> alert("Order request successfully to te Admin!"); </script>';
-                        header("location:javascript://history.go(-1)");
+			echo '<script type="text/javascript"> alert("Order request successfully to te Admin!"); 
+			window.location.href="index.php";
+			</script>';
 		}
 
 /*---------------------buying a product----------------------------*/	
@@ -30,7 +31,7 @@ if ($buyer_id=$_GET['buyer_id']) {
 else{
 	echo '
 			<script type="text/javascript">
-				alert("Sorry, you are not logged in. Kindly Logged in as buyer or register, then login");
+				alert("Sorry, you are not logged in as Buyer. Kindly Logged in as Buyer or register, then login");
 				window.location.href="index.php";
 			</script>
 		';
