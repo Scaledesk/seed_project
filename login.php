@@ -48,6 +48,7 @@ if(isset($_POST['submit'])) {
 					}
 					
 				} else {
+					$password=md5($password);
 					$query3 = "SELECT id, position FROM admin WHERE email='$email' AND password='$password'";
 					
 					if($query3_run=mysql_query($query3)) {
@@ -66,9 +67,12 @@ if(isset($_POST['submit'])) {
 							}
 							
 						} else {
-							echo '<script type="text/javascript"> alert("You have entered Wrong Password!");</script>'; //not_working
-							header("Location:index.php");
-							
+							echo '
+			<script type="text/javascript">
+				alert("You have entered Wrong Password!Try again");
+				window.location.href="index.php";
+			</script>
+		';					
 						}
 					}else {
 						echo mysql_error();

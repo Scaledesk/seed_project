@@ -18,14 +18,16 @@ if(!isset($_SESSION['user_position'])) {
 				$new_pass = md5($_POST['new_pass']);
 				
 				
-				$sql_ch = "SELECT seller_registration_email FROM seller_registration WHERE seller_registration_pwd='$old_pass' AND seller_registration_id='$ch_id'";
+				$sql_ch = "SELECT approved_seller_email FROM approved_seller WHERE approved_seller_pwd='$old_pass' AND approved_seller_id='$ch_id'";
 				$sql_ch_run = mysql_query($sql_ch);
 				
 				if(mysql_num_rows($sql_ch_run)>0) {
-					$query = "UPDATE seller_registration SET seller_registration_pwd='$new_pass' WHERE seller_registration_id='$ch_id'";
+					$query = "UPDATE approved_seller SET approved_seller_pwd='$new_pass' WHERE approved_seller_id='$ch_id'";
 					
 					if(mysql_query($query)) {
-						echo '<script type="text/javascript"> alert("Password Changed!");</script>';
+						echo '<script type="text/javascript"> alert("Password Changed successfully! Kindly Login again to continue");
+						window.location.href="logout.php";
+						</script>';
 					}
 				} else {
 					echo '<script type="text/javascript"> window.location.href="change_password.php?msg=error"; </script>';
@@ -45,7 +47,9 @@ if(!isset($_SESSION['user_position'])) {
 							$query = "UPDATE user_registration SET user_registration_pwd='$new_pass' WHERE user_registration_id='$ch_id'";
 							
 							if(mysql_query($query)) {
-								echo '<script type="text/javascript"> alert("Password Changed!");</script>';
+								echo '<script type="text/javascript"> alert("Password Changed successfully! Kindly Login again to continue");
+										window.location.href="logout.php";
+										</script>';
 							}
 						}else {
 							echo '<script type="text/javascript"> window.location.href="change_password.php?msg=error"; </script>';
@@ -63,7 +67,9 @@ if(!isset($_SESSION['user_position'])) {
 					$query = "UPDATE admin SET password='$new_pass' WHERE id='$ch_id'";
 					
 					if(mysql_query($query)) {
-						echo '<script type="text/javascript"> alert("Password Changed!");</script>';
+						echo '<script type="text/javascript"> alert("Password Changed successfully! Kindly Login again to continue");
+						window.location.href="logout.php";
+						</script>';
 					}
 				}else {
 					echo '<script type="text/javascript"> window.location.href="change_password.php?msg=error"; </script>';
