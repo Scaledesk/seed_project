@@ -2,16 +2,12 @@
 require_once 'include/connect.php';
 ?>
 <?php
-	
-		$buyer_id=$_GET['buyer_id'];
+if ($buyer_id=$_GET['buyer_id']) {
+/*---------------------buying a product----------------------------*/
+		
 		$product_id=$_GET['product_id'];
 		$product_quantity_units=$_GET['product_quantity_units'];
                 $price=$_GET['price'];
-		print_r($buyer_id);
-		print_r($product_id);
-		print_r($product_quantity_units);
-                print_r($price);
-
 		$query ="INSERT INTO `breezeof_seed`.`buyer_pending_order`
 				(
 				`buyer_id`,
@@ -28,5 +24,15 @@ require_once 'include/connect.php';
 			echo '<script type="text/javascript"> alert("Order request successfully to te Admin!"); </script>';
                         header("location:javascript://history.go(-1)");
 		}
-	
+
+/*---------------------buying a product----------------------------*/	
+}
+else{
+	echo '
+			<script type="text/javascript">
+				alert("Sorry, you are not logged in. Kindly Logged in as buyer or register, then login");
+				window.location.href="index.php";
+			</script>
+		';
+}
 ?>
