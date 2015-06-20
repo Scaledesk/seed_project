@@ -7,7 +7,7 @@ if ($buyer_id=$_GET['buyer_id']) {
 		
 		$product_id=$_GET['product_id'];
 		$product_quantity_units=$_GET['product_quantity_units'];
-                $price=$_GET['price'];
+                $price=$_GET['ac_price'];
 		$query ="INSERT INTO `breezeof_seed`.`buyer_pending_order`
 				(
 				`buyer_id`,

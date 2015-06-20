@@ -171,14 +171,22 @@ session_start();
 		                    			<form action="buy.php" method="get">
 		                    			<div class="cause-meta">
 		                    				<!--<span><i class="fa fa-user"></i> Carla Cruz</span>-->
-                                                            <span><i class="fa fa-calendar"></i><input type="number" name="product_quantity_units" id="product_quantity_units" value="1" onchange="get_quantity(this.value)" style="width:50px;padding-top:0px!important;padding-bottom:0px!important;"></span>
-		                    				<span><i class="fa fa-flag"></i> $<?php echo $product_price; ?></span>
+                                                            <span><i class="fa fa-calendar"></i><input type="number" onchange="cal_pr()" name="product_quantity_units" id="product_quantity_units" value="1" onchange="get_quantity(this.value)" style="width:50px;padding-top:0px!important;padding-bottom:0px!important;"></span>
+		                    				<span><i class="fa fa-flag"></i> <input type="text" name="ac_price" id="ac_price" disabled="disabled" value='<?php echo $product_price; ?>'></span>
+		                    									<input type="hidden" id="product_price" name="product_price" value='<?php echo $product_price; ?>'>	
 		                    									<input type="hidden" id="product_id" name="product_id" value='<?php echo $product_id; ?>'>	
 		                    									<input type="hidden" id="buyer_id" name="buyer_id" value='<?php echo isset($_SESSION['user_id'])?$_SESSION['user_id']:NULL; ?>'>
-                                                                                                        <input type="hidden" id="price" name="price" value='<?php echo $product_price; ?>'>
                                                                 <input type="submit" value="Buy" data-toggle="modal" class="btn btn-accent">
 		                    			</div>
 		                    		</form>
+		                    		<script type="text/javascript">
+                    				function cal_pr(){
+                    					var price=document.getElementById('product_price').value;
+                    					price=document.getElementById('product_quantity_units').value*price;
+                    					document.getElementById('ac_price').value=price;
+                    					
+                    				}
+		                    		</script>
 		                    			<div class="cause-holder">
 											<div class="clearfix">
 												<!--<span class="raised pull-left">Raised: $2,400</span>
