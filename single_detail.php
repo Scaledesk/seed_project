@@ -181,9 +181,17 @@ session_start();
 		                    		</form>
 		                    		<script type="text/javascript">
                     				function cal_pr(){
+                    					check_number();
                     					var price=document.getElementById('product_price').value;
                     					price=document.getElementById('product_quantity_units').value*price;
                     					document.getElementById('ac_price').value=price;
+                    					
+                    				}
+                    				function check_number(){
+                    					if (document.getElementById('product_quantity_units').value<=0) {
+                    						document.getElementById('product_quantity_units').value=1;
+                    						alert("Minimum No of units must be 1");
+                    					};
                     					
                     				}
 		                    		</script>
