@@ -31,7 +31,7 @@ if ($buyer_id=$_GET['buyer_id']) {
 else{
 	echo '
 			<script type="text/javascript">
-				alert("Sorry, you are not logged in as Buyer. Kindly Logged in as Buyer or register, then login");
+				alert("Sorry, you are not logged in. Kindly Logged in or register.");
 				window.location.href="index.php";
 			</script>
 		';
