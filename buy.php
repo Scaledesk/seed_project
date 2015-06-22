@@ -21,7 +21,7 @@ if ($buyer_id=$_GET['buyer_id']) {
 				$product_quantity_units,
                 $price);";
 		if(mysql_query($query)) {
-			echo '<script type="text/javascript"> alert("Order request successfully to te Admin!"); 
+			echo '<script type="text/javascript"> alert("Order request sent successfully to te Admin!"); 
 			window.location.href="index.php";
 			</script>';
 		}
