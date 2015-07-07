@@ -146,7 +146,7 @@ if(!isset($_SESSION['user_position']) && !isset($_SESSION['user_email']) && !iss
                 	<div class="col-md-3">
                     	<aside class="sidebar" style="padding-left:0px!important;">
                     		
-                    		<div class="widget">
+                    		<!-- <div class="widget">
                     			<h4 class="widget-title">Menu</h4>
                     			<ul class="sidebar-list">
                     				<li><a href="view_register_product.php">New Product</a></li>
@@ -161,13 +161,16 @@ if(!isset($_SESSION['user_position']) && !isset($_SESSION['user_email']) && !iss
 									<li><a href="update-category.php">Update Category</a></li>
 									<li><a href="delete_category.php">Delete Category</a></li>
 									
-                    				<!--<li><a href="#">Volunteer</a></li>
-                    				<li><a href="#">Nonprofit</a></li>-->
+                    				<!-<li><a href="#">Volunteer</a></li>
+                    				<li><a href="#">Nonprofit</a></li>
                     			</ul>
-                    		</div>
-                    		
-                    		
-                    	</aside>
+                    		</div> -->
+                    		 	
+						<?php 
+                          include('include/left_menu.php');
+
+                         ?>
+                    		 	</aside>
                     </div>
 					
 					<div class="col-md-9">
@@ -188,6 +191,8 @@ if(!isset($_SESSION['user_position']) && !isset($_SESSION['user_email']) && !iss
 
 								<?php 
 								$user_id= $_SESSION['user_id'];
+
+								  //echo $user_id;
 									$query = "SELECT Product,Seller,Quantity,Price FROM pending_orders where Buyer_Id=$user_id";
 									
 									if($query_run = mysql_query($query)) {

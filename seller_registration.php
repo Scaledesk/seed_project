@@ -1,6 +1,12 @@
 <?php
 include "include/connect.php";
 
+if(isset($_REQUEST['msg'])){
+include('include/massage.php');
+}
+
+   error_reporting(0);
+   
 if(isset($_POST['submit'])) {
 	$check=true;
 
@@ -71,19 +77,10 @@ if(isset($_POST['submit'])) {
 	$query = "INSERT INTO seller_registration(seller_registration_id, seller_registration_email, seller_registration_pwd, seller_registration_name, seller_registration_contact_no, position) VALUES(NULL, '$email', '$hash_pass', '$name', '$contact', '$posi')";
 	
 	if(mysql_query($query)) {
-		echo '
-			<script type="text/javascript">
-				alert("Data Inserted");
-				window.location.href="index.php";
-			</script>
-		';
+		header("location: index.php?msg=Registration Successfully");
+		
 	} else if(mysql_error()) {
-		echo '
-			<script type="text/javascript">
-				alert("Some error Occured!!!!Try Again");
-				window.location.href="index.php";
-			</script>
-		';
+		header("location: index.php?msg=Registration Not Successfully");
 	}
 }
 	

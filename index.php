@@ -34,8 +34,13 @@ session_start();
 </head>
 	<body>
 
+<?php 
+if(isset($_REQUEST['msg'])){
+include('include/massage.php');
+}
+?>
 		<header class="site-header">
-
+     
 			<div class="main-header">
 				<div class="container">
 					<div class="row">
@@ -110,7 +115,7 @@ session_start();
 			</nav>
 			<nav id="responsive-menu"></nav>
 		</header>
-
+ 
 		<!--
         #################################
             - THEMEPUNCH BANNER -
@@ -611,8 +616,9 @@ session_start();
                                     <input type="text" id="name" name="name" placeholder="Name">
                                 </div>
 								<div class="col-sm-6 col-xs-12">
-                                    <input type="email" id="name" name="email" placeholder="Enter Your Email">
+                                    <input type="email" id="email4" name="email" placeholder="Enter Your Email">
                                 </div>
+                                <div id="status2"></div>
                                 <div class="col-sm-6 col-xs-12">
                                     <input type="password" name="password" id="password" placeholder="Password" required><br />
                                 </div>
@@ -676,8 +682,9 @@ session_start();
                                     <input type="text" id="name" name="name" placeholder="Name">
                                 </div>
 								<div class="col-sm-6 col-xs-12">
-                                    <input type="email" id="name" name="email" placeholder="Enter Your Email">
+                                    <input type="email" id="email3" name="email" placeholder="Enter Your Email">
                                 </div>
+                                <div id="status1"></div>
                                 <div class="col-sm-6 col-xs-12">
                                     <input type="password" name="password" id="password1" placeholder="Password" required><br />
                                 </div>
@@ -732,33 +739,31 @@ session_start();
                             </div>-->
                         </div>
                         <div class="form-group">
-                           <form method="POST" action="login.php">
-						   <!--<h6 class="modal-subtitle">Personal Information</h6>-->
-                            <div class="row">
-								<div class="col-sm-6 col-xs-12">
-                                    <input type="email" id="name" name="email" placeholder="Enter Your Email">
-                                </div>
-                                <div class="col-sm-6 col-xs-12">
-                                    <input type="password" name="password"  placeholder="Password" required><br />
-                                </div>
-								
-                            </div>
-                            
-                            <!--<div class="row">
-                                <div class="col-sm-6 col-xs-12">
-                                    <textarea id="message" placeholder="Address"></textarea>
-                                </div>
-                                <div class="col-sm-6 col-xs-12">
-                                    <textarea id="additional" placeholder="Additional Note"></textarea>
-                                </div>
-                            </div>-->
-							
-                            <div class="row">
-                                <div class="col-sm-12 col-xs-12">
-                                    <button type="submit" class="btn btn-accent" name="submit" value="Login">Login</input>
-                                </div>
-                            </div>
-							</form>
+     
+
+
+ <center>
+
+<div align="center">
+
+
+<form method="post" action="login.php">
+  
+      <div align="left">Email:&nbsp;</div>
+      <input id="email2" size="20" type="email" name="email"/>
+      
+    
+
+	<div align="left">Password:&nbsp;</div>
+      <input id="username" size="20" type="password" name="username"/>
+      <div id="status"></div>
+      <input id="login_btn" type="submit" name="submit" value="Login"/>
+   
+</form>
+
+</div>
+ </center>
+
                         </div>
                     </div>
                 </div>
@@ -798,9 +803,191 @@ session_start();
 
 		<script src="assets/js/plugins.js"></script>
         <script src="assets/js/bevolnuteer-custom.js"></script>
+        
+       <script type="text/javascript" src="assets/js/jquery-1.2.6.min.js"></script>
+
+
+<SCRIPT type="text/javascript">
+
+pic1 = new Image(16, 16); 
+pic1.src = "images/loader.gif";
+
+$(document).ready(function(){
+
+$("#username").change(function() { 
+var email = $("#email2").val();
+var usr = $("#username").val();
+
+if(usr.length >= 4)
+{
+$("#status").html('<img src="images/loader.gif" align="absmiddle">&nbsp;Checking availability...');
+
+    $.ajax({  
+    type: "POST",  
+    url: "check.php",  
+    data:{"email":email,"password":usr},
+    success: function(msg){  
+   
+   $("#status").ajaxComplete(function(event, request, settings){ 
+
+	if(msg == 'OK')
+	{ 
+       $("#username").removeClass('object_error'); // if necessary
+		$("#username").addClass("object_ok");
+		$(this).html('&nbsp;<img src="images/tick.gif" align="absmiddle">');
+	}  
+	else  
+	{  
+		$("#username").removeClass('object_ok'); // if necessary
+		$("#username").addClass("object_error");
+		$(this).html(msg);
+	}  
+   
+   });
+
+ } 
+   
+  }); 
+
+}
+else
+	{
+	$("#status").html('<font color="red">The username should have at least <strong>4</strong> characters.</font>');
+	$("#username").removeClass('object_ok'); // if necessary
+	$("#username").addClass("object_error");
+	}
+
+});
+
+});
+
+
+</SCRIPT>
+
+
+<!------------------------Registration user------------------------------------------------------------------------------------>
+
+<SCRIPT type="text/javascript">
+
+pic1 = new Image(16, 16); 
+pic1.src = "images/loader.gif";
+
+$(document).ready(function(){
+
+$("#email3").change(function() { 
+var email3 = $("#email3").val();
+
+
+if(email3.length >= 4)
+{
+$("#status1").html('<img src="images/loader.gif" align="absmiddle">&nbsp;Checking availability...');
+
+
+    $.ajax({  
+    type: "POST",  
+    url: "check.php",  
+    
+	data: "email3="+ email3, 
+    success: function(msg){  
+   
+   $("#status1").ajaxComplete(function(event, request, settings){ 
+
+	if(msg == 'OK')
+	{ 
+       $("#email3").removeClass('object_error'); // if necessary
+		$("#email3").addClass("object_ok");
+		$(this).html('&nbsp;<img src="images/tick.gif" align="absmiddle">');
+	}  
+	else  
+	{  
+		$("#email3").removeClass('object_ok'); // if necessary
+		$("#email3").addClass("object_error");
+		$(this).html(msg);
+	}  
+   
+   });
+
+ } 
+   
+  }); 
+
+}
+else
+	{
+	$("#status1").html('<font color="red">The username should have at least <strong>4</strong> characters.</font>');
+	$("#email3").removeClass('object_ok'); // if necessary
+	$("#email3").addClass("object_error");
+	}
+
+});
+
+});
+
+</script>
+
+<!--.......................................Seller Rregistration.........................................................-->
+
+<SCRIPT type="text/javascript">
+
+pic1 = new Image(16, 16); 
+pic1.src = "images/loader.gif";
+
+$(document).ready(function(){
+
+$("#email4").change(function() { 
+var email4 = $("#email4").val();
+
+
+if(email4.length >= 4)
+{
+$("#status2").html('<img src="images/loader.gif" align="absmiddle">&nbsp;Checking availability...');
+
+
+    $.ajax({  
+    type: "POST",  
+    url: "check.php",  
+    
+	data: "email4="+ email4, 
+    success: function(msg){  
+   
+   $("#status2").ajaxComplete(function(event, request, settings){ 
+
+	if(msg == 'OK')
+	{ 
+       $("#email4").removeClass('object_error'); // if necessary
+		$("#email4").addClass("object_ok");
+		$(this).html('&nbsp;<img src="images/tick.gif" align="absmiddle">');
+	}  
+	else  
+	{  
+		$("#email4").removeClass('object_ok'); // if necessary
+		$("#email4").addClass("object_error");
+		$(this).html(msg);
+	}  
+   
+   });
+
+ } 
+   
+  }); 
+
+}
+else
+	{
+	$("#status2").html('<font color="red">The username should have at least <strong>4</strong> characters.</font>');
+	$("#email4").removeClass('object_ok'); // if necessary
+	$("#email4").addClass("object_error");
+	}
+
+});
+
+});
+
+</script>
 
 
 
+   
 	</body>
 
 </html>

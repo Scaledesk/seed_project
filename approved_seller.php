@@ -1,16 +1,23 @@
 <?php 
 include "include/connect.php";
+
+if(isset($_REQUEST['msg'])){
+include('include/massage.php');
+}
+
 ?>
 <?php
-	if(isset($_GET['del_id'])) {
-		$delete_id = $_GET['del_id'];
+//	if(isset($_GET['del_id'])) {
+//		$delete_id = $_GET['del_id'];
+
+
+//		$sql = "DELETE FROM approved_seller WHERE approved_seller_id='$delete_id'";
 		
-		$sql = "DELETE FROM approved_seller WHERE approved_seller_id='$delete_id'";
-		
-			if(mysql_query($sql)) {
-				echo '<script type="text/javascript"> alert("Seller Registration deleted!");</script>';
-			}
-	}
+//			if(mysql_query($sql)) {
+//				header("location:approved_seller.php?msg=Seller Registration deleted successfully");
+				
+//			}
+//	}
 ?>
 
 <?php 
@@ -18,7 +25,9 @@ session_start();
 if(!isset($_SESSION['admin_position'])) {
 	header("Location:index.php");
 }
+
 ?>
+
 <!DOCTYPE html>
 <!--[if lt IE 7 ]><html class="ie ie6" lang="en-US"> <![endif]-->
 <!--[if IE 7 ]><html class="ie ie7" lang="en-US"> <![endif]-->
@@ -156,7 +165,7 @@ if(!isset($_SESSION['admin_position'])) {
                 <div class="row" style="margin-top:50px;">
                 	<div class="col-md-3">
                     	<aside class="sidebar" style="padding-left:0px!important;">
-                    		
+                    		<!-- 
                     		<div class="widget">
                     			<h4 class="widget-title">Menu</h4>
                     			<ul class="sidebar-list">
@@ -173,23 +182,22 @@ if(!isset($_SESSION['admin_position'])) {
 									<li><a href="delete_category.php">Delete Category</a></li>
 									
                     				<!--<li><a href="#">Volunteer</a></li>
-                    				<li><a href="#">Nonprofit</a></li>-->
+                    				<li><a href="#">Nonprofit</a></li>
                     			</ul>
-                    		</div>
+                    		</div> -->
                     		
                     		
+                         <?php 
+                          include('include/left_menu.php');
+
+                         ?>
                     	</aside>
                     </div>
 					
 					<div class="col-md-9">
                 		<div class="main-content blog">
 		                    <div class="row">
-								<h2>Approved Seller</h2><br />
 								
-								<table border="1" style="width:100%;">
-								<th style="text-align:center;">Seller Name</th>
-								<th style="text-align:center;">Seller Email</th>
-								<th style="text-align:center;">Seller Contact no</th>
 								<!--<th style="text-align:center;">Product Price</th>
 								<th style="text-align:center;">Product Description</th>
 								<th style="text-align:center;">Product Status</th>
@@ -197,7 +205,49 @@ if(!isset($_SESSION['admin_position'])) {
 
 
 								<?php 
-									$query = "SELECT approved_seller_id, approved_seller_email, approved_seller_name, approved_seller_contact_no FROM approved_seller";
+                             if(isset($_GET['del_id'])) {
+		                       $delete_id = $_GET['del_id'];
+		
+		                      $sql = "SELECT * FROM approved_seller WHERE approved_seller_id='$delete_id'";
+		
+			                   $res=mysql_query($sql);
+
+	               		     $row=mysql_fetch_assoc($res);
+      
+				             
+				               $email=$row['approved_seller_email'];
+				               $id =$row['approved_seller_id'];
+				
+			                 
+
+                                             ?> 
+
+                                  <h2>Approved Seller Delete</h2><br />
+					           <form action="mail.php" name="myform" method="post">
+ 
+					                <input type="hidden" value="<?php echo $email;?>" name="email"/>
+					            <input type="hidden" value="<?php echo $id;  ?>" name="id"/>
+							   Subject		    
+						         <div><input type="text" name="subject" /></div>
+								Description    
+						       <div> <textarea name="body"></textarea></div>
+						        <input type="submit"class="approve" name="Submit" value="Sent" />
+									 
+									</form>
+                                  <?php
+                                        }
+
+                                      else{
+
+                                      	?>
+                                            <h2>Approved Seller</h2><br />
+								
+								           <table border="1" style="width:100%;">
+								            <th style="text-align:center;">Seller Name</th>
+								          <th style="text-align:center;">Seller Email</th>
+								         <th style="text-align:center;">Seller Contact no</th>
+                                      	<?php
+                                      	$query = "SELECT approved_seller_id, approved_seller_email, approved_seller_name, approved_seller_contact_no FROM approved_seller";
 									
 									if($query_run = mysql_query($query)) {
 										while($query_rows = mysql_fetch_assoc($query_run)) {
@@ -214,7 +264,7 @@ if(!isset($_SESSION['admin_position'])) {
 											
 										}
 									}
-									
+									}
 								?>
 
 								</table>

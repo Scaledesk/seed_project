@@ -1,5 +1,10 @@
 <?php 
 include "include/connect.php";
+
+if(isset($_REQUEST['msg'])){
+include('include/massage.php');
+}
+
 ?>
 <?php
 	if(isset($_GET['del_id'])) {
@@ -8,7 +13,8 @@ include "include/connect.php";
 		$sql = "DELETE FROM seller_registration WHERE seller_registration_id='$delete_id'";
 		
 			if(mysql_query($sql)) {
-				echo '<script type="text/javascript"> alert("Seller Registration deleted!");</script>';
+				header("location:buyer_pending_orders.php?msg=Seller Registration deleted!");
+				
 			}
 	}
 ?>
@@ -16,7 +22,31 @@ include "include/connect.php";
 if(isset($_POST['approve'])) {
 	$appr_id = $_POST['appr'];
 	
-	$sql_insert = "INSERT INTO buyer_approved_order(buyer_id, product_id, product_quantity_units, price)
+     //echo $appr_id;
+  
+       
+       foreach ($appr_id as $mail_id) {
+       
+         echo $mail_id;
+         $sql_select="SELECT * FROM pending_orders WHERE id='$mail_id'";   
+         $result=mysql_query($sql_select);
+          $rows=mysql_fetch_assoc($result);
+         
+        $buyer_email=$rows['Buyer_Email_Id'];
+             $buyer_name=$rows['Buyer'];
+              $seller_name=$rows['Seller'];
+               $seller_email=$rows['Seller_Email'];
+
+               $subject=" Approved New Product";
+               $body=" this is new Product Approved";
+              include('mail/mailfile_buyer.php');
+              include('mail/mailfile_seller.php');
+
+       }
+
+             
+      
+	$sql_insert ="INSERT INTO buyer_approved_order(buyer_id, product_id, product_quantity_units, price)
 					SELECT buyer_id, product_id, product_quantity_units, price FROM buyer_pending_order 
 					WHERE id IN(";
 		
@@ -40,7 +70,7 @@ if(isset($_POST['approve'])) {
 				$query3.= ")";
 				
 				if(mysql_query($query3)){
-					echo '<script type="text/javascript"> alert("Seller Registration Approved!");</script>';
+				 header("location:buyer_pending_orders.php?msg=Buyer Products Approved ");
 				}
 			
 		}
@@ -190,7 +220,7 @@ if(!isset($_SESSION['admin_position'])) {
                 	<div class="col-md-3">
                     	<aside class="sidebar" style="padding-left:0px!important;">
                     		
-                    		<div class="widget">
+                    		<!-- <div class="widget">
                     			<h4 class="widget-title">Menu</h4>
                     			<ul class="sidebar-list">
                     				<li><a href="view_register_product.php">New Product</a></li>
@@ -205,10 +235,16 @@ if(!isset($_SESSION['admin_position'])) {
 									<li><a href="update-category.php">Update Category</a></li>
 									<li><a href="delete_category.php">Delete Category</a></li>
 									
-                    				<!--<li><a href="#">Volunteer</a></li>
-                    				<li><a href="#">Nonprofit</a></li>-->
+                    				<!-<li><a href="#">Volunteer</a></li>
+                    				<li><a href="#">Nonprofit</a></li>-
                     			</ul>
-                    		</div>
+                    		</div -->
+
+                    			
+						<?php 
+                          include('include/left_menu.php');
+
+                         ?>
                     		
                     		
                     	</aside>

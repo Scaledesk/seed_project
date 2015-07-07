@@ -1,9 +1,22 @@
 <?php 
 include "include/connect.php";
+
+if(isset($_REQUEST['msg'])){
+include('include/massage.php');
+}
+
 session_start(); 
 if(!isset($_SESSION['position']) && !isset($_SESSION['email']) && !isset($_SESSION['id'])) {
 	header("Location:index.php");
 }
+
+
+
+$sql1="SELECT * FROM admin";
+$result4=mysql_query($sql1);
+$row=mysql_fetch_assoc($result4);
+$email=$row['email'];
+
 ?>
 <?php
 	if(isset($_GET['del_id'])) {
@@ -16,6 +29,8 @@ if(!isset($_SESSION['position']) && !isset($_SESSION['email']) && !isset($_SESSI
 		$sql_img_row = mysql_fetch_assoc($sql_img_run);
 		
 		$del_img = $sql_img_row['product_image'];
+
+		include('mail/mailfile.php');
 		
 		if(unlink("images/".$del_img)) {
 		
@@ -148,19 +163,11 @@ if(!isset($_SESSION['position']) && !isset($_SESSION['email']) && !isset($_SESSI
 				<div class="row">
 					<div class="col-md-3">
                     	<aside class="sidebar" style="padding-left:0px!important;">
-                    		
-                    		<div class="widget">
-                    			<h4 class="widget-title">Menu</h4>
-                    			<ul class="sidebar-list">
-                    				<li><a href="add-product.php">Add Product</a></li>
-									<li><a href="seller_pending_product.php">Pending Product</a></li>
-                    				<li><a href="seller_product.php">Approved Product</a></li>
-									<li><a href="add_industries.php">Add Industries</a></li>
-                    				<!--<li><a href="#">Volunteer</a></li>
-                    				<li><a href="#">Nonprofit</a></li>-->
-                    			</ul>
-                    		</div>
-                    		
+                    			
+                         <?php 
+                          include('include/left_menu.php');
+
+                         ?>
                     		
                     	</aside>
                     </div>
@@ -192,11 +199,14 @@ if(!isset($_SESSION['position']) && !isset($_SESSION['email']) && !isset($_SESSI
 			$pprice = $query_rows['product_price'];
 			$pdescription = $query_rows['product_description'];
 			$pavl = $query_rows['product_availability'];
+
+			$subject=" Delete";
+            $body="Product Name $pname </br>product are Delete.";
 			
 			echo '<tr>';
 			
 			echo '<td>'.$pname.'</td><td>'.$pcat.'</td><td><img src="images/'.$pimage.'" width="50%"></td><td>'.$pprice.'</td><td>'.$pdescription.'</td><td>'.$pavl.'</td>';
-			echo '<td><a href="seller_product.php?del_id='.$id.'">Delete</a></td>';
+			echo '<td><a href="seller_product.php?del_id='.$id.'&subject='.$subject.'&body='.$body.'&email='.$email.'">Delete</a></td>';
 			echo '<td><a href="update_product.php?send_id='.$id.'">Update</a></td>';
 			echo '</tr>';
 			

@@ -1,5 +1,10 @@
 <?php 
 include "include/connect.php";
+
+if(isset($_REQUEST['msg'])){
+include('include/massage.php');
+}
+
 session_start(); 
 if(!isset($_SESSION['admin_position'])) {
 	header("Location:index.php");
@@ -12,7 +17,10 @@ if(!isset($_SESSION['admin_position'])) {
 			$del = "DELETE FROM category WHERE cat_id='$del_id'";
 			
 			if(mysql_query($del)) {
-				echo '<script type="text/javascript"> alert("Data Deleted!");</script>';
+				
+				
+                     header("location: delete_category.php?msg=Data Deleted Successfully ");
+				
 			}
 		}
 	}
@@ -155,7 +163,7 @@ if(!isset($_SESSION['admin_position'])) {
                 	<div class="col-md-3">
                     	<aside class="sidebar" style="padding-left:0px!important;">
                     		
-                    		<div class="widget">
+                    		<!-- <div class="widget">
                     			<h4 class="widget-title">Menu</h4>
                     			<ul class="sidebar-list">
                     				<li><a href="view_register_product.php">New Product</a></li>
@@ -167,12 +175,20 @@ if(!isset($_SESSION['admin_position'])) {
 									<li><a href="add_industries.php">Add Industries</a></li>
 									<li><a href="show_industries.php">Show Industries</a></li>
 									
-                    				<!--<li><a href="#">Volunteer</a></li>
-                    				<li><a href="#">Nonprofit</a></li>-->
+                    				<li><a href="#">Volunteer</a></li>
+                    				<li><a href="#">Nonprofit</a></li>
                     			</ul>
                     		</div>
+                    		 -->
                     		
-                    		
+                           
+                    		<?php 
+                          include('include/left_menu.php');
+
+                         ?>
+
+
+
                     	</aside>
                     </div>
 					

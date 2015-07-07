@@ -5,12 +5,12 @@ session_start();
 <?php 
 if(isset($_POST['submit'])) {
 	$email = $_POST['email'];
-	$password = $_POST['password'];
+	$password = $_POST['username'];
 	$hpass = md5($password);
+	$active=1;
 	
-	$query = "SELECT * FROM approved_seller WHERE approved_seller_email='$email' AND approved_seller_pwd='$hpass'";
-	
-	if($query_run = @mysql_query($query)){
+	$query ="SELECT * FROM approved_seller WHERE approved_seller_email='$email' AND approved_seller_pwd='$hpass'";
+	if($query_run = mysql_query($query)){
 		
 		if(mysql_num_rows($query_run)>0) {
 			while($query_row = mysql_fetch_assoc($query_run)) {
@@ -30,7 +30,7 @@ if(isset($_POST['submit'])) {
 							}
 					}
 		} else {
-			$query2 = "SELECT user_registration_id, user_registration_email, user_registration_name, position FROM user_registration WHERE user_registration_email='$email' AND user_registration_pwd='$hpass'";
+			$query2 = "SELECT user_registration_id, user_registration_email, user_registration_name, position FROM user_registration WHERE user_registration_email='$email' AND user_registration_pwd='$hpass' AND active='$active'";
 			if($query2_run = mysql_query($query2)) {
 				if(mysql_num_rows($query2_run)>0) {
 					while($query2_row = mysql_fetch_assoc($query2_run)) {
@@ -69,7 +69,7 @@ if(isset($_POST['submit'])) {
 						} else {
 							echo '
 			<script type="text/javascript">
-				alert("You have entered Wrong Password!Try again");
+				
 				window.location.href="index.php";
 			</script>
 		';					

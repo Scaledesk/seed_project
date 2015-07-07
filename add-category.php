@@ -1,4 +1,11 @@
-<?php include "include/connect.php"; ?>
+<?php include "include/connect.php";
+
+if(isset($_REQUEST['msg'])){
+include('include/massage.php');
+}
+
+?>
+
 <?php
 	if(isset($_POST['submit'])) {
 		$category_name = $_POST['cat'];
@@ -6,7 +13,8 @@
 		$query = "INSERT INTO category(cat_id, category) VALUES(NULL, '$category_name')";
 		
 		if(mysql_query($query)) {
-			echo '<script type="text/javascript"> alert("Category Added!"); </script>';
+			header("location:add-category.php?msg=Category Added successfully");
+			
 		}
 	}
 ?>
@@ -15,6 +23,7 @@ session_start();
 if(!isset($_SESSION['admin_position'])) {
 	header("Location:index.php");
 }
+
 ?>
 <!DOCTYPE html>
 <!--[if lt IE 7 ]><html class="ie ie6" lang="en-US"> <![endif]-->
@@ -154,7 +163,7 @@ if(!isset($_SESSION['admin_position'])) {
                 	<div class="col-md-3">
                     	<aside class="sidebar" style="padding-left:0px!important;">
                     		
-                    		<div class="widget">
+                    		<!-- <div class="widget">
                     			<h4 class="widget-title">Menu</h4>
                     			<ul class="sidebar-list">
                     				<li><a href="view_register_product.php">New Product</a></li>
@@ -167,11 +176,16 @@ if(!isset($_SESSION['admin_position'])) {
 									<li><a href="show_industries.php">Show Industries</a></li>
 									
                     				<!--<li><a href="#">Volunteer</a></li>
-                    				<li><a href="#">Nonprofit</a></li>-->
+                    				<li><a href="#">Nonprofit</a></li>
                     			</ul>
                     		</div>
+                    		 -->
                     		
-                    		
+
+                    		<?php 
+                          include('include/left_menu.php');
+
+                         ?>
                     	</aside>
                     </div>
 					
@@ -185,7 +199,7 @@ if(!isset($_SESSION['admin_position'])) {
 										<h1>Add Category</h1>
 										<form method="POST" action="add-category.php">
 											Enter category name :-<br /><br />
-											<input type="text" name="cat">
+											<input type="text" name="cat" required>
 											<br /><br />
 											<input type="submit" value="Add" name="submit" class="btn btn-accent">
 										</form>

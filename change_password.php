@@ -8,6 +8,11 @@ if(!isset($_SESSION['user_position'])) {
 		}
 	}
 }
+
+if(isset($_REQUEST['msg'])){
+include('include/massage.php');
+}
+
 ?>
 
 <?php 
@@ -25,13 +30,15 @@ if(!isset($_SESSION['user_position'])) {
 					$query = "UPDATE approved_seller SET approved_seller_pwd='$new_pass' WHERE approved_seller_id='$ch_id'";
 					
 					if(mysql_query($query)) {
-						echo '<script type="text/javascript"> alert("Password Changed successfully! Kindly Login again to continue");
-						window.location.href="logout.php";
-						</script>';
+
+
+                      header("location: logout.php?msg=Password Changed successfully! Kindly Login again to continue ");
+						
 					}
 				} else {
-					echo '<script type="text/javascript"> window.location.href="change_password.php?msg=error"; </script>';
-				}
+					header("location: change_password.php?msg=Error ");
+					
+					}
 				
 				
 			} else if(isset($_SESSION['user_position'])) {
@@ -47,13 +54,13 @@ if(!isset($_SESSION['user_position'])) {
 							$query = "UPDATE user_registration SET user_registration_pwd='$new_pass' WHERE user_registration_id='$ch_id'";
 							
 							if(mysql_query($query)) {
-								echo '<script type="text/javascript"> alert("Password Changed successfully! Kindly Login again to continue");
-										window.location.href="logout.php";
-										</script>';
+
+								header("location: logout.php?msg=Password Changed successfully! Kindly Login again to continue ");
+
 							}
 						}else {
-							echo '<script type="text/javascript"> window.location.href="change_password.php?msg=error"; </script>';
-						}
+							header("location: change_password.php?msg=Error");
+                             }
 				} else { echo mysql_error();}
 			}else if(isset($_SESSION['admin_position'])) {
 				$ch_id = $_SESSION['admin_id'];
@@ -67,13 +74,14 @@ if(!isset($_SESSION['user_position'])) {
 					$query = "UPDATE admin SET password='$new_pass' WHERE id='$ch_id'";
 					
 					if(mysql_query($query)) {
-						echo '<script type="text/javascript"> alert("Password Changed successfully! Kindly Login again to continue");
-						window.location.href="logout.php";
-						</script>';
+
+						header("location: logout.php?msg=Password Changed successfully! Kindly Login again to continue");
+						
 					}
 				}else {
-					echo '<script type="text/javascript"> window.location.href="change_password.php?msg=error"; </script>';
-				}
+               header("location: change_password.php?msg=Error");
+						
+            }
 			}
 	}
 ?>
@@ -209,6 +217,105 @@ if(!isset($_SESSION['user_position'])) {
             </div>
         </section>-->
 		
+<!-- ............................................................................. -->
+
+<section>
+			<div class="container">
+                <div class="row" style="margin-top:50px;">
+                	<div class="col-md-3">
+                    	<aside class="sidebar" style="padding-left:0px!important;">
+                    		
+                    		<!-- <div class="widget">
+                    			<h4 class="widget-title">Menu</h4>
+                    			<ul class="sidebar-list">
+                    				<li><a href="view_register_product.php">New Product</a></li>
+									<li><a href="admin_approved_product.php">Approved Product</a></li>
+									<li><a href="add-resource.php">Add Resource</a></li>
+                    				<li><a href="update-resource.php">Update Resource</a></li>
+									<li><a href="delete-resource.php">Delete Resource</a></li>
+									<li><a href="change_password.php">Change Password</a></li>
+									<li><a href="add_industries.php">Add Industries</a></li>
+									<li><a href="show_industries.php">Show Industries</a></li>
+									<li><a href="add-category.php">Add Category</a></li>
+									<li><a href="update-category.php">Update Category</a></li>
+									<li><a href="delete_category.php">Delete Category</a></li>
+                    				<!--<li><a href="#">Volunteer</a></li>
+                    				<li><a href="#">Nonprofit</a></li>
+                    			</ul>
+                    		</div>
+                    		 -->
+                    	<?php 
+                          include('include/left_menu.php');
+
+                         ?>
+                    	</aside>
+                    </div>
+					
+					<div class="col-md-9">
+                		<div class="main-content blog">
+		                    <div class="row">
+		                    	<div class="col-sm-12">
+		                    		<div class="blog-post">
+										<div>
+										<div class="contact-form" id="contact">
+														
+														<div class="form-group">
+															<div class="row">
+																<div class="col-sm-12">
+																	<div class="col-sm-6">
+																		<div class="col-md-12 col-sm-12">
+																		<h2>Change Password</h2>
+																			<?php 
+																				if(isset($_GET['msg'])) {
+																					echo '<span style="padding:15px 10px;color:#FF5454;border:1px solid #FF5454;display:block;margin-bottom:15px;">Your old password does not match! </span>';
+																				}
+																			?>
+																			<form method="POST" action="change_password.php">
+																				<input type="password" name="old_pass" id="name-id" placeholder="Old Passsword" required>
+																				<input type="password" name="new_pass" id="password" placeholder="New Password">
+																				<input type="password" name="confirm_pass" id="" placeholder="Confirm Passsword" oninput="check(this)">
+																				<input type="submit" name="submit" value="Change Password" class="btn btn-accent">
+																			</form>
+																		</div>
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div>	
+													
+										</div>
+										</div>
+		                    		
+		                    		
+		                    		
+		                    	</div>
+		                    </div>
+		                    
+	                    </div>
+                	</div>
+                    
+                </div>
+
+			</div>
+		</section>
+
+<!-- ...................................................................................... -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 
+
+
 		<section>
 			<div class="container">
                 <div class="row" style="margin-top:50px;">
@@ -267,7 +374,7 @@ if(!isset($_SESSION['user_position'])) {
 
 			</div>
 		</section>
-		<footer class="site-footer">
+ -->		<footer class="site-footer">
 			<div class="container">
 				<div class="row">
 					<div class="col-md-3 col-sm-6 col-xs-12 widget">

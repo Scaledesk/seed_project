@@ -1,10 +1,19 @@
 <?php 
 require_once 'include/connect.php';
+
+if(isset($_REQUEST['msg'])){
+include('include/massage.php');
+}
+
+
 ?>
 <?php
 if ($buyer_id=$_GET['buyer_id']) {
 /*---------------------buying a product----------------------------*/
 		
+     include('mail/mailfile.php');
+
+
 		$product_id=$_GET['product_id'];
 		$product_quantity_units=$_GET['product_quantity_units'];
                 $price=$_GET['ac_price'];
@@ -21,19 +30,23 @@ if ($buyer_id=$_GET['buyer_id']) {
 				$product_quantity_units,
                 $price);";
 		if(mysql_query($query)) {
-			echo '<script type="text/javascript"> alert("Order request sent successfully to te Admin!"); 
-			window.location.href="index.php";
-			</script>';
+
+			header("location: index.php?msg=Order request sent successfully to the Admin! ");
+           
+              
+           
+
+
+
+
+			
 		}
 
 /*---------------------buying a product----------------------------*/	
 }
 else{
-	echo '
-			<script type="text/javascript">
-				alert("Sorry, you are not logged in. Kindly Logged in or register.");
-				window.location.href="index.php";
-			</script>
-		';
+
+     header("location : index.php?msg=Sorry, you are not logged in. Kindly Logged in or register.");
+
 }
 ?>

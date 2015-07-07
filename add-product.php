@@ -2,14 +2,27 @@
 include "include/connect.php"; 
 session_start();
 
+error_reporting(0);
+
+if(isset($_REQUEST['msg'])){
+include('include/massage.php');
+}
 if(!isset($_SESSION['position']) && !isset($_SESSION['email']) && !isset($_SESSION['id'])) {
 	header("Location:index.php");
 }
-?>
-<?php
+
+
+
+    $sql="SELECT * FROM admin";
+    $result=mysql_query($sql);
+    $admin_result=mysql_fetch_assoc($result);
+    $subject="New Product add";
+    $body="new product add by seller";
+
 if(isset($_POST['insert'])) {
 	
-	
+	include('mail/mailfile.php');
+
 	$product_name = $_POST['pname'];
 	$product_category = $_POST['pcat'];
 	$product_price = $_POST['price'];
@@ -26,11 +39,14 @@ if(isset($_POST['insert'])) {
 			VALUES(NULL, '$product_name', '$product_category', '$image_name', '$product_price', '$description', '$avl', '$seller_id')";
 			
 		if(mysql_query($sql)) {
-			echo '<script type="text/javascript"> alert("Data Inserted!"); </script>';
+			
+				header("location:add-product.php?msg=Data insert successfully");
 		}
 	
 	
 }
+
+
 ?>
 <!DOCTYPE html>
 <!--[if lt IE 7 ]><html class="ie ie6" lang="en-US"> <![endif]-->
@@ -164,17 +180,11 @@ if(isset($_POST['insert'])) {
 					<div class="col-md-3">
                     	<aside class="sidebar" style="padding-left:0px!important;">
                     		
-                    		<div class="widget">
-                    			<h4 class="widget-title">Menu</h4>
-                    			<ul class="sidebar-list">
-                    				<li><a href="add-product.php">Add Product</a></li>
-									<li><a href="seller_pending_product.php">Pending Product</a></li>
-                    				<li><a href="seller_product.php">Approved Product</a></li>
-									<li><a href="add_industries.php">Add Industries</a></li>
-                    				<!--<li><a href="#">Volunteer</a></li>
-                    				<li><a href="#">Nonprofit</a></li>-->
-                    			</ul>
-                    		</div>
+                    			
+                         <?php 
+                          include('include/left_menu.php');
+
+                         ?>
                     		
                     		
                     	</aside>
@@ -224,7 +234,19 @@ if(isset($_POST['insert'])) {
 										</select>
 										
 										</div>
+
+
+                                       <input type="hidden" name="email" value="<?php echo $admin_result['email']; ?>"/>
+                                       <input type="hidden" name="subject" value="<?php echo $subject; ?>"/>
+                                       <input type="hidden" name="body" value="<?php echo $body; ?>"/>
+                                       <input type="hidden" name="name" value="<?php echo $name= $_SESSION['name']; ?>">
+
+
+
+
 										<div class="col-md-12 col-sm-12">
+
+
 										<input type="submit" value="insert" name="insert" class="btn btn-accent" style="width:25%;text-align:center;">
 										</form>
 										</div>

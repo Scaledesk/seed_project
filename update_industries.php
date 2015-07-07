@@ -1,4 +1,12 @@
-<?php include "include/connect.php"; ?>
+<?php include "include/connect.php";
+
+if(isset($_REQUEST['msg'])){
+include('include/massage.php');
+}
+
+?>
+
+?>
 <?php
 	if(isset($_POST['update'])) {
 		echo $_POST['indust_id'];
@@ -9,7 +17,10 @@
 			
 			$sql_up = "UPDATE industries SET industries_name='$name', industries_description='$detail' WHERE industries_id='$id'";
 			
-			if(mysql_query($sql_up)) { echo '<script type="text/javascript"> alert("Data Updated"); </script>';} else {echo mysql_error();}
+			if(mysql_query($sql_up)) { 
+				
+				header("location: update_industries.php?msg=Data Updated Successfully ");
+			} else {echo mysql_error();}
 			
 		} else if(isset($_POST['update'])) {
 			
@@ -20,7 +31,11 @@
 			
 			$sql_up = "UPDATE industries SET industries_name='$name', industries_description='$detail', industries_states_id='$s_id' WHERE industries_id='$id'";
 			
-			if(mysql_query($sql_up)) { echo '<script type="text/javascript"> alert("Data Updated"); </script>';} else {echo mysql_error();}
+			if(mysql_query($sql_up)) { 
+
+				header("location: update_industries.php?msg=Data Updated Successfully ");
+
+			} else {echo mysql_error();}
 		}
 	}
 ?>

@@ -1,4 +1,9 @@
-<?php include "include/connect.php"; ?>
+<?php include "include/connect.php"; 
+
+if(isset($_REQUEST['msg'])){
+include('include/massage.php');
+}
+?>
 <?php
 if(isset($_POST['update'])) {
 	$update_value = $_POST['cat_value'];
@@ -6,7 +11,9 @@ if(isset($_POST['update'])) {
 	$sql_update = "UPDATE category SET category = '$update_value' WHERE cat_id='$update_id'";
 	
 	if(mysql_query($sql_update)) {
-		echo '<script type="text/javascript"> alert("Category Updated!");</script>';
+
+		header("location: update-category.php?msg=Category Updated Successfully ");
+		
 	}
 }
 ?>
@@ -154,7 +161,7 @@ if(!isset($_SESSION['admin_position'])) {
                 	<div class="col-md-3">
                     	<aside class="sidebar" style="padding-left:0px!important;">
                     		
-                    		<div class="widget">
+                    		<!-- <div class="widget">
                     			<h4 class="widget-title">Menu</h4>
                     			<ul class="sidebar-list">
                     				<li><a href="view_register_product.php">New Product</a></li>
@@ -167,11 +174,17 @@ if(!isset($_SESSION['admin_position'])) {
 									<li><a href="show_industries.php">Show Industries</a></li>
 									
                     				<!--<li><a href="#">Volunteer</a></li>
-                    				<li><a href="#">Nonprofit</a></li>-->
+                    				<li><a href="#">Nonprofit</a></li>
                     			</ul>
                     		</div>
+                    		 -->
                     		
-                    		
+
+
+                    		<?php 
+                          include('include/left_menu.php');
+
+                         ?>
                     	</aside>
                     </div>
 					
@@ -197,7 +210,7 @@ if(!isset($_SESSION['admin_position'])) {
 												
 												echo '<form method="POST" action="update-category.php">';
 												echo '<h1>Update Category</h1>';
-												echo 'Enter Update Category: <br /><br /><input type="text" name="cat_value" value="'.$category.'"><br /><br />';
+												echo 'Enter Update Category: <br /><br /><input required type="text" name="cat_value" value="'.$category.'"><br /><br />';
 												echo '<input type="hidden" name="up_id" value="'.$cat_id.'"><input type="submit" value="Update" name="update" class="btn btn-accent">';
 												echo '</form>';
 												
@@ -212,7 +225,7 @@ if(!isset($_SESSION['admin_position'])) {
 											<h1>Update Category</h1>
 											Select Category to update :- 
 											<br /><br />
-											<select name="cat" style="width:25%;">
+											<select name="cat" style="width:25%;" >
 												<option>Select Category</option>
 												
 												<?php 

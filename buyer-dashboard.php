@@ -3,6 +3,11 @@ session_start();
 if(!isset($_SESSION['user_position']) && !isset($_SESSION['user_email']) && !isset($_SESSION['user_id'])) {
 	header("Location:index.php");
 }
+
+if(isset($_REQUEST['msg'])){
+include('include/massage.php');
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -143,21 +148,13 @@ if(!isset($_SESSION['user_position']) && !isset($_SESSION['user_email']) && !iss
                 	<div class="col-md-3">
                     	<aside class="sidebar" style="padding-left:0px!important;">
                     		
-                    		<div class="widget">
-                    			<h4 class="widget-title">Menu</h4>
-                    			<ul class="sidebar-list">
-                    				<li><a href="view_user_profile.php">View Profile</a></li>
-									<li><a href="change_password.php">Change Password</a></li>
-                    				<li><a href="#">Order History</a></li>
-									<li><a href="b_buyer_pending_orders.php">Pending Orders</a></li>
-									<li><a href="b_buyer_approved_orders.php">Approved Orders</a></li>
-									<li><a href="#">Track Order</a></li>
-                    				<!--<li><a href="#">Volunteer</a></li>
-                    				<li><a href="#">Nonprofit</a></li>-->
-                    			</ul>
-                    		</div>
-                    		
-                    		
+                    		<!-- .................................................................. -->
+
+                    			<?php 
+                          include('include/left_menu.php');
+
+                         ?>
+                    		<!-- ........................................................................ -->
                     	</aside>
                     </div>
 					

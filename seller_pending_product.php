@@ -1,5 +1,10 @@
 <?php 
 include "include/connect.php";
+
+if(isset($_REQUEST['msg'])){
+include('include/massage.php');
+}
+
 session_start(); 
 if(!isset($_SESSION['position']) && !isset($_SESSION['email']) && !isset($_SESSION['id'])) {
 	header("Location:login.php");
@@ -22,7 +27,9 @@ if(!isset($_SESSION['position']) && !isset($_SESSION['email']) && !isset($_SESSI
 			$sql = "DELETE FROM product WHERE product_id='$delete_id'";
 		
 			if(mysql_query($sql)) {
-				echo '<script type="text/javascript"> alert("Product deleted!");</script>';
+
+				header("location: seller_pending_product.php?msg=Product deleted Successfully ");
+				
 			}
 		}
 	}
@@ -151,17 +158,11 @@ if(!isset($_SESSION['position']) && !isset($_SESSION['email']) && !isset($_SESSI
 					<div class="col-md-3">
                     	<aside class="sidebar" style="padding-left:0px!important;">
                     		
-                    		<div class="widget">
-                    			<h4 class="widget-title">Menu</h4>
-                    			<ul class="sidebar-list">
-                    				<li><a href="add-product.php">Add Product</a></li>
-									<li><a href="seller_pending_product.php">Pending Product</a></li>
-                    				<li><a href="seller_product.php">Approved Product</a></li>
-									<li><a href="add_industries.php">Add Industries</a></li>
-                    				<!--<li><a href="#">Volunteer</a></li>
-                    				<li><a href="#">Nonprofit</a></li>-->
-                    			</ul>
-                    		</div>
+                    		
+                         <?php 
+                          include('include/left_menu.php');
+
+                         ?>
                     		
                     		
                     	</aside>

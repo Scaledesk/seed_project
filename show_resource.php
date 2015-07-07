@@ -1,5 +1,9 @@
 <?php 
 include "include/connect.php";
+
+if(isset($_REQUEST['msg'])){
+include('include/massage.php');
+}
 session_start();
 ?>
 <!DOCTYPE html>

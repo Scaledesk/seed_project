@@ -4,6 +4,13 @@ session_start();
 	if(!isset($_SESSION['admin_position'])) {
 		header("Location:index.php");
 	}
+
+
+
+if(isset($_REQUEST['msg'])){
+include('include/massage.php');
+}
+
 ?>
 <?php
 	if(isset($_POST['submit'])) {
@@ -15,7 +22,11 @@ session_start();
 		$query_add = "INSERT INTO industries(industries_id, industries_name, industries_description, industries_states_id) VALUES(NULL, '$name', '$detail', '$indust_id')";
 		
 		if(mysql_query($query_add)) {
-			echo '<script type="text/javascript"> alert("Industry Added."); </script>';
+
+			
+          header("location: add_industries.php?msg=Industry Added successfully");
+						
+
 		}
 		
 		
@@ -153,7 +164,7 @@ session_start();
 					<div class="col-md-3">
                     	<aside class="sidebar" style="padding-left:0px!important;">
                     		
-                    		<div class="widget">
+                    		<!-- <div class="widget">
                     			<h4 class="widget-title">Menu</h4>
                     			<ul class="sidebar-list">
                     				<li><a href="view_register_product.php">New Product</a></li>
@@ -164,11 +175,14 @@ session_start();
 									<li><a href="change_password.php">Change Password</a></li>
 									<li><a href="add_industries.php">Add Industries</a></li>
                     				<!--<li><a href="#">Volunteer</a></li>
-                    				<li><a href="#">Nonprofit</a></li>-->
+                    				<li><a href="#">Nonprofit</a></li>
                     			</ul>
-                    		</div>
+                    		</div> -->
                     		
-                    		
+                    		<?php 
+                          include('include/left_menu.php');
+
+                         ?>
                     	</aside>
                     </div>
 					

@@ -1,6 +1,14 @@
 <?php 
 include "include/connect.php";
 session_start();
+
+if(isset($_REQUEST['msg'])){
+include('include/massage.php');
+}
+
+
+
+
 ?>
 <?php
 	if(isset($_GET['show_id'])) {
@@ -20,6 +28,20 @@ session_start();
 		}
 		
 	}
+
+
+
+
+
+    $sql="SELECT * FROM admin";
+    $result=mysql_query($sql);
+    $admin_result=mysql_fetch_assoc($result);
+    $subject="Buy New Product  ".$_SESSION['user_name'];
+    $body=" Product Name:-  ".$product_name."Price:-".$product_price."  New product buy by Buyer";
+
+
+
+
 ?>
 <!DOCTYPE html>
 <!--[if lt IE 7 ]><html class="ie ie6" lang="en-US"> <![endif]-->
@@ -176,7 +198,13 @@ session_start();
 		                    									<input type="hidden" id="product_price" name="product_price" value='<?php echo $product_price; ?>'>	
 		                    									<input type="hidden" id="product_id" name="product_id" value='<?php echo $product_id; ?>'>	
 		                    									<input type="hidden" id="buyer_id" name="buyer_id" value='<?php echo isset($_SESSION['user_id'])?$_SESSION['user_id']:NULL; ?>'>
-                                                                <input type="submit" value="Buy" data-toggle="modal" class="btn btn-accent">
+                                                                
+
+		                    			                        <input type="hidden" name="email" value="<?php echo $admin_result['email']; ?>"/>
+						                                        <input type="hidden" name="subject" value="<?php echo $subject; ?>"/>
+						                                        <input type="hidden" name="body" value="<?php echo $body; ?>"/>
+						                                        <input type="submit" value="Buy" data-toggle="modal" class="btn btn-accent">
+
 		                    			</div>
 		                    		</form>
 		                    		<script type="text/javascript">

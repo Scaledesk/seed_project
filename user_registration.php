@@ -1,6 +1,9 @@
 <?php
 include "include/connect.php";
 
+if(isset($_REQUEST['msg'])){
+include('include/massage.php');
+}
 if(isset($_POST['submit'])) {
 	$check=true;
 
@@ -13,12 +16,10 @@ if(isset($_POST['submit'])) {
 			/*echo "Sorry, you are already registered as Seller and your are approved seller";
 			echo "try again with different email address";
 			header("Location:index.php");*/
-			echo '
-			<script type="text/javascript">
-				alert("Sorry, you are already registered as Seller and your are approved seller,try again with different email address");
-				window.location.href="index.php";
-			</script>
-		';	
+			
+            header("location: index.php?msg=Sorry, you are already registered as Seller and your are approved seller,try again with different email address");
+
+
 			$check=false;
 		}
 	}
@@ -30,12 +31,9 @@ if(isset($_POST['submit'])) {
 			/*echo "Sorry, you are already registered as Seller and your are not approved seller yet. Wait for approval or cancellation of request. Then try again";
 			echo "try again with different email address";
 			header("Location:index.php");*/
-			echo '
-			<script type="text/javascript">
-				alert("Sorry, you are already registered as Seller and your are not approved seller yet. Wait for approval or cancellation of request. Then try again<br/>or try again with different email address");
-				window.location.href="index.php";
-			</script>
-		';
+			 header("location: index.php?msg=Sorry, you are already registered as Seller and your are not approved seller yet. Wait for approval or cancellation of request. Then try again");
+
+			
 			$check=false;
 		}
 	}
@@ -49,12 +47,10 @@ if(isset($_POST['submit'])) {
 			/*echo "Sorry, you are already registered as Buyer";
 			echo "try again with different email address";
 			header("Location:index.php");*/
-			echo '
-			<script type="text/javascript">
-				alert("Sorry, you are already registered as Buyer, try again with different email address");
-				window.location.href="index.php";
-			</script>
-		';
+
+			header("location: index.php?msg=Sorry, you are already registered as Buyer, try again with different email address");
+
+			
 			$check=false;
 		}
 	}
@@ -68,23 +64,20 @@ if(isset($_POST['submit'])) {
 	$name = mysql_real_escape_string($_POST['name']);
 	$contact = mysql_real_escape_string($_POST['contact']);
 	$position = $_POST['position'];
+	$active=1;
 	
-	$query = "INSERT INTO user_registration(user_registration_id, user_registration_email, user_registration_pwd, user_registration_name, user_registration_contact_no, position) VALUES(NULL, '$email', '$hash_pass', '$name', '$contact', '$position')";
+	$query = "INSERT INTO user_registration(user_registration_id, user_registration_email, user_registration_pwd, user_registration_name, user_registration_contact_no, position ,active) VALUES(NULL, '$email', '$hash_pass', '$name', '$contact', '$position' ,'$active')";
 	
 	if(mysql_query($query)) {
-		echo '
-			<script type="text/javascript">
-				alert("Data Inserted");
-				window.location.href="index.php";
-			</script>
-		';
+
+
+			header("location: index.php?msg=Data Inserted");
+
 	} else if(mysql_error()) {
-		echo '
-			<script type="text/javascript">
-				alert("Some error Occured!!!!Try Again");
-				window.location.href="index.php";
-			</script>
-		';
+
+
+			header("location: index.php?msg=Some error Occured!!!!Try Again");
+		
 	}
 }	
 /*!-------------------------buyer_registration----------------------------------*/

@@ -1,6 +1,10 @@
-<?php include "include/connect.php"; ?>
+
 <?php 
 include "include/connect.php";
+
+if(isset($_REQUEST['msg'])){
+include('include/massage.php');
+}
 session_start(); 
 if(!isset($_SESSION['position']) && !isset($_SESSION['email']) && !isset($_SESSION['id'])) {
 	header("Location:login.php");
@@ -20,11 +24,9 @@ if(!isset($_SESSION['position']) && !isset($_SESSION['email']) && !isset($_SESSI
 		$sql_update = "UPDATE approved_product SET product_name='$pname', product_category='$pcategory', product_price='$pprice', product_description='$pdescription', product_availability='$pavailability' WHERE product_id='$u_id'";
 		
 		if(mysql_query($sql_update)) {
-			echo '
-				<script type="text/javascript">
-					alert("Product Updated!");
-					window.location.href="seller_product.php";
-				</script>';
+			
+
+				header("location: seller_product.php?msg=Product Updated Successfully ");
 		}
 	} else if(isset($_POST['update'])) {
 		$u_id = $_POST['u_id'];
@@ -45,12 +47,9 @@ if(!isset($_SESSION['position']) && !isset($_SESSION['email']) && !isset($_SESSI
 		$sql_update = "UPDATE approved_product SET product_name='$pname', product_category='$pcategory',product_image='$image_name', product_price='$pprice', product_description='$pdescription', product_availability='$pavailability' WHERE product_id='$u_id'";
 		
 		if(mysql_query($sql_update)) {
-			echo '
-				<script type="text/javascript">
-					alert("Product Updated!");
-					window.location.href="seller_product.php";
-				</script>
-			';
+
+			header("location: seller_product.php?msg=Product Updated Successfully ");
+			
 		} else { echo mysql_query();}
 	}
 ?>

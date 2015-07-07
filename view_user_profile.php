@@ -1,5 +1,9 @@
 <?php 
 include "include/connect.php";
+
+if(isset($_REQUEST['msg'])){
+include('include/massage.php');
+}
 session_start(); 
 if(!isset($_SESSION['user_position']) && !isset($_SESSION['user_email']) && !isset($_SESSION['user_id'])) {
 	header("Location:index.php");
@@ -16,7 +20,8 @@ if(!isset($_SESSION['user_position']) && !isset($_SESSION['user_email']) && !iss
 		
 		$sql_up = "UPDATE user_registration SET user_registration_name='$up_name', user_registration_contact_no='$up_phone' WHERE user_registration_id='$update_id'";
 		if(mysql_query($sql_up)) {
-			echo '<script type="text/javascript"> alert("Data Updated!");</script>';
+			header("location: view_user_profile.php?msg=Data Updated Successfully ");
+			
 		}
 	}
 ?>
@@ -158,7 +163,7 @@ if(!isset($_SESSION['user_position']) && !isset($_SESSION['user_email']) && !iss
                 	<div class="col-md-3">
                     	<aside class="sidebar" style="padding-left:0px!important;">
                     		
-                    		<div class="widget">
+<!--                     		<div class="widget">
                     			<h4 class="widget-title">Menu</h4>
                     			<ul class="sidebar-list">
                     				<li><a href="view_user_profile.php">View Profile</a></li>
@@ -166,12 +171,16 @@ if(!isset($_SESSION['user_position']) && !isset($_SESSION['user_email']) && !iss
                     				<li><a href="#">Order History</a></li>
 									<li><a href="#">Pending Order</a></li>
 									<li><a href="#">Track Order</a></li>
-                    				<!--<li><a href="#">Volunteer</a></li>
-                    				<li><a href="#">Nonprofit</a></li>-->
+                    				<li><a href="#">Volunteer</a></li>
+                    				<li><a href="#">Nonprofit</a></li>
                     			</ul>
-                    		</div>
+                    		</div> -->
                     		
-                    		
+                    		<?php 
+                          include('include/left_menu.php');
+
+                         ?>
+                         
                     	</aside>
                     </div>
 					
@@ -331,7 +340,8 @@ if(!isset($_SESSION['user_position']) && !isset($_SESSION['user_email']) && !iss
 						<span class="line-seperator"></span>
 						<ul class="footer-list">
 							<li><a href="#">Vivamus pellentesque in facilisi</a></li>
-							<li><a href="#">Pellentesque sit amet felis</a></li>
+							<li><a href="#">Pellentesque sit amet feli
+							</a></li>
 							<li><a href="#">Curabitur mattis massa vitae</a></li>
 							<li><a href="#">Maecenas euismod magna a nunc</a></li>
 							<li><a href="#">Integer iaculis risus in lacus</a></li>

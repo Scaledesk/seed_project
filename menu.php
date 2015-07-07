@@ -3,7 +3,7 @@
                                 <li><a href="#">About Us</a></li>
                                 <li><a href="#">Seeds</a>
                                     <ul>
-                                        <li><a href="#">Demo Category</a></li>
+                                        <li><a href="product_detail.php">Demo Category</a></li>
                                     </ul>
                                 </li>
                                 <li><a href="#">Calculators</a>

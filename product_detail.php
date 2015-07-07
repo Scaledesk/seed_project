@@ -1,5 +1,10 @@
 <?php 
 include "include/connect.php";
+
+if(isset($_REQUEST['msg'])){
+include('include/massage.php');
+}
+
 session_start();
 ?>
 <!DOCTYPE html>
@@ -565,8 +570,13 @@ session_start();
                             </div>-->
                         </div>
                         <div class="form-group">
+
+
+                        <!-- ........................old form..................................... -->      
+
+<!-- 
                            <form method="POST" action="login.php">
-						   <!--<h6 class="modal-subtitle">Personal Information</h6>-->
+						   
                             <div class="row">
 								<div class="col-sm-6 col-xs-12">
                                     <input type="email" id="name" name="email" placeholder="Enter Your Email">
@@ -576,28 +586,48 @@ session_start();
                                 </div>
 								
                             </div>
-                            
-                            <!--<div class="row">
-                                <div class="col-sm-6 col-xs-12">
-                                    <textarea id="message" placeholder="Address"></textarea>
-                                </div>
-                                <div class="col-sm-6 col-xs-12">
-                                    <textarea id="additional" placeholder="Additional Note"></textarea>
-                                </div>
-                            </div>-->
-							
-                            <div class="row">
+                              <div class="row">
                                 <div class="col-sm-12 col-xs-12">
                                     <button type="submit" class="btn btn-accent" name="submit" value="Login">Login</input>
                                 </div>
                             </div>
-							</form>
+							</form> -->
+
+
+                           <!-- ........................................................ -->
+
+                            <form method="post" action="login.php">
+  
+      <div align="left">Email:&nbsp;</div>
+      <input id="email2" size="20" type="email" name="email"/>
+      
+    
+
+	<div align="left">Password:&nbsp;</div>
+      <input id="username" size="20" type="password" name="username"/>
+      <div id="status"></div>
+      <input id="login_btn" type="submit" name="submit" value="Login"/>
+   
+</form>
+
+                           
+
+
+
+
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 		<!--End login form here-->
+
+
+
+
+
+
+
 
         <a href="#" class="go-top"><i class="fa fa-chevron-up"></i></a>
 
@@ -633,6 +663,67 @@ session_start();
         <script src="assets/js/bevolnuteer-custom.js"></script>
 
 
+
+
+       <script type="text/javascript" src="assets/js/jquery-1.2.6.min.js"></script>
+
+
+<SCRIPT type="text/javascript">
+
+pic1 = new Image(16, 16); 
+pic1.src = "images/loader.gif";
+
+$(document).ready(function(){
+
+$("#username").change(function() { 
+var email = $("#email2").val();
+var usr = $("#username").val();
+
+if(usr.length >= 4)
+{
+$("#status").html('<img src="images/loader.gif" align="absmiddle">&nbsp;Checking availability...');
+
+    $.ajax({  
+    type: "POST",  
+    url: "check.php",  
+    data:{"email":email,"password":usr},
+    success: function(msg){  
+   
+   $("#status").ajaxComplete(function(event, request, settings){ 
+
+	if(msg == 'OK')
+	{ 
+       $("#username").removeClass('object_error'); // if necessary
+		$("#username").addClass("object_ok");
+		$(this).html('&nbsp;<img src="images/tick.gif" align="absmiddle">');
+	}  
+	else  
+	{  
+		$("#username").removeClass('object_ok'); // if necessary
+		$("#username").addClass("object_error");
+		$(this).html(msg);
+	}  
+   
+   });
+
+ } 
+   
+  }); 
+
+}
+else
+	{
+	$("#status").html('<font color="red">The username should have at least <strong>4</strong> characters.</font>');
+	$("#username").removeClass('object_ok'); // if necessary
+	$("#username").addClass("object_error");
+	}
+
+});
+
+});
+
+
+</SCRIPT>
 
 	</body>
 

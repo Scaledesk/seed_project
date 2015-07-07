@@ -1,6 +1,16 @@
 <?php 
 include "include/connect.php";
+
+
+if(isset($_REQUEST['msg'])){
+include('include/massage.php');
+}
+error_reporting(0);
 ?>
+
+
+
+ 
 <?php
 	if(isset($_GET['del_id'])) {
 		$delete_id = $_GET['del_id'];
@@ -8,13 +18,17 @@ include "include/connect.php";
 		$sql = "DELETE FROM seller_registration WHERE seller_registration_id='$delete_id'";
 		
 			if(mysql_query($sql)) {
-				echo '<script type="text/javascript"> alert("Seller Registration deleted!");</script>';
+				header("location: view_register_seller.php?msg=Seller Registration deleted Successfully ");
+
+				
 			}
 	}
 ?>
 <?php
 if(isset($_POST['approve'])) {
 	$appr_id = $_POST['appr'];
+
+   
 	
 	$sql_insert = "INSERT INTO approved_seller(approved_seller_email, approved_seller_pwd, approved_seller_name, approved_seller_contact_no, position)
 					SELECT seller_registration_email, seller_registration_pwd, seller_registration_name, seller_registration_contact_no, position FROM seller_registration 
@@ -23,12 +37,42 @@ if(isset($_POST['approve'])) {
 		foreach($appr_id as $a_id) {
 			
 			$sql_insert.=$a_id.",";
+			
+      }
 		
-		}
+		
 		$sql_insert2 = rtrim($sql_insert, ',');
 		$sql_insert2.= ")";
+
+
+       $insert_q=mysql_query($sql_insert2);
+
+         
+
+ // ...........................................................
+     foreach ($appr_id as $mail_id) {
+       
+          $mail_id;
+         $sql_select="SELECT * FROM seller_registration WHERE seller_registration_id='$mail_id'";   
+         $result=mysql_query($sql_select);
+          $rows=mysql_fetch_assoc($result);
+         
+           
+
+             $seller_name=$rows['seller_registration_name'];
+              $seller_email=$rows['seller_registration_email'];
+
+               $subject=" Approved by Admin";
+               $body="Hi"+.'$seller_name'. " this is new Product Approved";
+              
+              include('mail/mailfile_seller.php');
+
+       }
+       
+// .............................................................
+
 		
-		if(mysql_query($sql_insert2)) {
+		if($insert_q) {
 			
 			$query2 = "DELETE FROM seller_registration WHERE seller_registration_id IN(";
 		
@@ -41,7 +85,8 @@ if(isset($_POST['approve'])) {
 				$query3.= ")";
 				
 				if(mysql_query($query3)){
-					echo '<script type="text/javascript"> alert("Seller Registration Approved!");</script>';
+
+					header("location: view_register_seller.php?msg=Seller Registration Approved!");
 				}
 			
 		}
@@ -191,7 +236,7 @@ if(!isset($_SESSION['admin_position'])) {
                 	<div class="col-md-3">
                     	<aside class="sidebar" style="padding-left:0px!important;">
                     		
-                    		<div class="widget">
+                    		<!-- <div class="widget">
                     			<h4 class="widget-title">Menu</h4>
                     			<ul class="sidebar-list">
                     				<li><a href="view_register_product.php">New Product</a></li>
@@ -207,11 +252,14 @@ if(!isset($_SESSION['admin_position'])) {
 									<li><a href="delete_category.php">Delete Category</a></li>
 									
                     				<!--<li><a href="#">Volunteer</a></li>
-                    				<li><a href="#">Nonprofit</a></li>-->
+                    				<li><a href="#">Nonprofit</a></li>
                     			</ul>
-                    		</div>
+                    		</div> -->
                     		
-                    		
+                    		<?php 
+                          include('include/left_menu.php');
+
+                         ?>
                     	</aside>
                     </div>
 					
