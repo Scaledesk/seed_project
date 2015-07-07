@@ -149,14 +149,38 @@ session_start();
                 		<div class="main-content causes-list">
                 			<div class="row">
 		                		<div class="col-sm-12">
-			                        <form id="causes-search" class="select-group">
+
+
+
+			                        <form id="causes-search" method="post" class="select-group" action="product_detail.php">
 			                            <div class="row">
 			                                <div class="col-md-4">
 			                                    <input name="input" placeholder="Type your keyword..." autocomplete="off">
 			                                </div>
 			                                <div class="col-md-4">
-			                                    <select onchange="jump(this)" name="category" style="padding:14px!important;">
-			                                        <option value="1" selected="">Choose Categories </option>
+			                                   <!--  <select onchange="jump(this)" name="category" style="padding:14px!important;"> -->
+                                                <select  name="category" style="padding:14px!important;">
+
+
+                                                   <option>Choose Category</option>
+												
+												<?php 
+
+													$query = "SELECT * FROM product_category";
+													
+													if($query_run = mysql_query($query)) {
+														while($query_rows = mysql_fetch_assoc($query_run)) {
+															
+															$category = $query_rows['product_category_name'];
+															$id = $query_rows['product_category_id'];
+															
+															echo '<option value="'.$category.'">'.$category.'</option>';
+														}
+													}
+												?>
+											
+
+			                          <!--               <option value="1" selected="">Choose Categories </option>
 			                                        <option value="1">Animals </option>
 			                                        <option value="2">Arts &amp; Culture </option>
 			                                        <option value="3">Children &amp; Youth </option>
@@ -175,11 +199,13 @@ session_start();
 			                                        <option value="16">Peace </option>
 			                                        <option value="17">Sports &amp; Rec. </option>
 			                                        <option value="18">Substance Abuse</option>
-			                                        <option value="19">Women </option>
+			                                        <option value="19">Women </option> -->
 			                                    </select>
 			                                </div>
 			                                <div class="col-md-4">
-			                                    <button class="btn btn-accent">Explore Now</button>
+
+			                                   <input type="submit" name="submit"class="btn btn-accent" value="Explore Now">
+			                                    
 			                                </div>
 			                            </div>
 			                        </form>
@@ -188,15 +214,86 @@ session_start();
 		                    <div class="row">
 		                    	<div class="col-sm-12">
 		                    		<?php
+
+
+                                      if(isset($_REQUEST['submit']))
+                                      {
+                                      	 $category=$_REQUEST['category'];
+
+                                      	 
+
+                                         $query = "SELECT product_id, product_name, product_price, product_image, product_description FROM approved_product WHERE product_category='$category' ";
+										
+										 if($query_run = @mysql_query($query)) {
+											while($query_rows = mysql_fetch_assoc($query_run)) {
+										  $p_id = $query_rows['product_id'];
+											$pname = $query_rows['product_name'];
+									 		$pprice = $query_rows['product_price'];
+									 		$pimage = $query_rows['product_image'];
+									 		$pdesc = $query_rows['product_description'];
+
+                                             ?>
+                                              <div class="cause-post">
+		                    			<div class="row">
+		                    				<div class="col-sm-5">
+				                    			<div class="cause-thumb">
+													<img src="images/<?php echo $pimage; ?>" alt="">
+													<div class="hover">
+														<div class="inner">
+															<a href="single_detail.php?show_id=<?php echo $p_id; ?>" data-toggle="modal" class="btn btn-accent">Detail</a>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="col-sm-7">
+												<div class="cause-content">
+													<div class="cause-holder">
+														<div class="clearfix">
+															<span class="raised pull-left">Price: $<?php echo $pprice; ?></span>
+															
+														</div>
+														<div class="progress">
+															<div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;"></div>
+														</div>
+													</div>
+													<h4><a href="single_detail.php?show_id=<?php echo $p_id; ?>"><?php echo $pname; ?></a></h4>
+													<span class="line-seperator"></span>
+													<p><?php echo $pdesc; ?></p><br />
+													<a href="#" class="btn btn-accent">Buy Now</a>
+												</div>
+											</div>
+			                    		</div>
+		                    		</div>		
+												
+
+
+
+
+
+                                         <?php
+									          }
+                                        
+
+          
+                                      	}
+
+                                      }
+
+                                         else
+                                         { 
 										$query = "SELECT product_id, product_name, product_price, product_image, product_description FROM approved_product";
 										
-										if($query_run = @mysql_query($query)) {
+										if($query_run = mysql_query($query)) {
 											while($query_rows = mysql_fetch_assoc($query_run)) {
 												$p_id = $query_rows['product_id'];
 												$pname = $query_rows['product_name'];
 												$pprice = $query_rows['product_price'];
 												$pimage = $query_rows['product_image'];
 												$pdesc = $query_rows['product_description'];
+									          
+									      
+
+									   
 									?>
 										<div class="cause-post">
 		                    			<div class="row">
@@ -233,9 +330,15 @@ session_start();
 												
 									<?php		
 											}
-										} else {
-											echo mysql_error();
-										}
+                                       
+                                      }
+
+									 } 
+
+
+										// else {
+										// 	echo mysql_error();
+										// }
 									?>
 									
 		                    		
