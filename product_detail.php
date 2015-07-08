@@ -151,10 +151,14 @@ session_start();
 		                		<div class="col-sm-12">
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 
                                          <form  method="post">
 			                        
+=======
+			                        <form id="causes-search" class="select-group">
+>>>>>>> parent of 39975a1... Product Searching
 =======
 			                        <form id="causes-search" class="select-group">
 >>>>>>> parent of 39975a1... Product Searching
@@ -166,6 +170,7 @@ session_start();
 			                                    <input name="input_user" id="input_user"placeholder="Type your keyword..."/>
 			                                </div>
 			                                <div class="col-md-4">
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 			                                   <!--  <select onchange="jump(this)" name="category" style="padding:14px!important;"> -->
@@ -193,6 +198,8 @@ session_start();
 =======
 =======
 >>>>>>> parent of 39975a1... Product Searching
+=======
+>>>>>>> parent of 39975a1... Product Searching
 			                                    <select onchange="jump(this)" name="category" style="padding:14px!important;">
 			                                        <option value="1" selected="">Choose Categories </option>
 			                                        <option value="1">Animals </option>
@@ -215,6 +222,9 @@ session_start();
 			                                        <option value="18">Substance Abuse</option>
 			                                        <option value="19">Women </option>
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> parent of 39975a1... Product Searching
+=======
 >>>>>>> parent of 39975a1... Product Searching
 =======
 >>>>>>> parent of 39975a1... Product Searching
@@ -226,11 +236,15 @@ session_start();
 			                                <div class="col-md-4">
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 
                                                 <input type="button" id="submit"name="s_submit"class="btn btn-accent s_submit" value="Explore Now">
 
 			                                   
 			                                    
+=======
+			                                    <button class="btn btn-accent">Explore Now</button>
+>>>>>>> parent of 39975a1... Product Searching
 =======
 			                                    <button class="btn btn-accent">Explore Now</button>
 >>>>>>> parent of 39975a1... Product Searching
@@ -245,6 +259,7 @@ session_start();
 		                    <div class="row">
 		                    	<div class="col-sm-12">
 		                    		<?php
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 
@@ -316,6 +331,8 @@ session_start();
 
                                          else
                                          { 
+=======
+>>>>>>> parent of 39975a1... Product Searching
 =======
 >>>>>>> parent of 39975a1... Product Searching
 =======
