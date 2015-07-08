@@ -149,45 +149,18 @@ session_start();
                 		<div class="main-content causes-list">
                 			<div class="row">
 		                		<div class="col-sm-12">
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 
 
-                                         <form  method="post">
-			                        
-=======
-			                        <form id="causes-search" class="select-group">
->>>>>>> parent of 39975a1... Product Searching
-=======
-			                        <form id="causes-search" class="select-group">
->>>>>>> parent of 39975a1... Product Searching
-=======
-			                        <form id="causes-search" class="select-group">
->>>>>>> parent of 39975a1... Product Searching
-=======
-			                        <form id="causes-search" class="select-group">
->>>>>>> parent of 39975a1... Product Searching
-=======
-			                        <form id="causes-search" class="select-group">
->>>>>>> parent of 39975a1... Product Searching
+			                        <form id="causes-search" class="select-group" method="post" action="product_detail.php">
 			                            <div class="row">
 			                                <div class="col-md-4">
-			                                    <input name="input_user" id="input_user"placeholder="Type your keyword..."/>
+			                                    <input name="input" placeholder="Type your keyword..." autocomplete="off">
 			                                </div>
 			                                <div class="col-md-4">
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-			                                   <!--  <select onchange="jump(this)" name="category" style="padding:14px!important;"> -->
-                                                <select id="category" name="category" style="padding:14px!important;">
+			                                   <select  name="category" style="padding:14px!important;">
 
 
-                                                   <option>Choose Category</option>
+                                                   <option value="">Choose Category</option>
 												
 												<?php 
 
@@ -205,181 +178,41 @@ session_start();
 												?>
 											
                                                 
-=======
-=======
->>>>>>> parent of 39975a1... Product Searching
-=======
->>>>>>> parent of 39975a1... Product Searching
-=======
->>>>>>> parent of 39975a1... Product Searching
-=======
->>>>>>> parent of 39975a1... Product Searching
-			                                    <select onchange="jump(this)" name="category" style="padding:14px!important;">
-			                                        <option value="1" selected="">Choose Categories </option>
-			                                        <option value="1">Animals </option>
-			                                        <option value="2">Arts &amp; Culture </option>
-			                                        <option value="3">Children &amp; Youth </option>
-			                                        <option value="4">Community </option>
-			                                        <option value="5">Crime Prevention </option>
-			                                        <option value="6">Disabled </option>
-			                                        <option value="7">Disaster Relief </option>
-			                                        <option value="8">Education </option>
-			                                        <option value="9">Elderly </option>
-			                                        <option value="10">Environment </option>
-			                                        <option value="11">Health &amp; Wellness </option>
-			                                        <option value="12">Homeless </option>
-			                                        <option value="13">Human Rights </option>
-			                                        <option value="14">Hunger &amp; Poverty </option>
-			                                        <option value="15">Overseas Aid </option>
-			                                        <option value="16">Peace </option>
-			                                        <option value="17">Sports &amp; Rec. </option>
-			                                        <option value="18">Substance Abuse</option>
-			                                        <option value="19">Women </option>
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
->>>>>>> parent of 39975a1... Product Searching
-=======
->>>>>>> parent of 39975a1... Product Searching
-=======
->>>>>>> parent of 39975a1... Product Searching
-=======
->>>>>>> parent of 39975a1... Product Searching
-=======
->>>>>>> parent of 39975a1... Product Searching
-			                                    </select>
-			                                </div>
 
-			                             <div class="col-md-2">  <input type="text" name="min" placeholder="Min Price"/></div>
-			                              <div class="col-md-2">  <input type="text" name="max" placeholder="Max Price"/></div>
-			                                <div class="col-md-4">
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-
-                                                <input type="button" id="submit"name="s_submit"class="btn btn-accent s_submit" value="Explore Now">
-
-			                                   
 			                                    
-=======
-			                                    <button class="btn btn-accent">Explore Now</button>
->>>>>>> parent of 39975a1... Product Searching
-=======
-			                                    <button class="btn btn-accent">Explore Now</button>
->>>>>>> parent of 39975a1... Product Searching
-=======
-			                                    <button class="btn btn-accent">Explore Now</button>
->>>>>>> parent of 39975a1... Product Searching
-=======
-			                                    <button class="btn btn-accent">Explore Now</button>
->>>>>>> parent of 39975a1... Product Searching
-=======
-			                                    <button class="btn btn-accent">Explore Now</button>
->>>>>>> parent of 39975a1... Product Searching
+			                                    </select>
+
+			                                </div>
+			                                <div class="col-md-4">
+			                                    <input type="submit" class="btn btn-accent"name="submit" value="Explore Now"/>
+			                                    
 			                                </div>
 			                            </div>
-			                         </form>
+			                        </form>
 			                    </div>
 		                    </div>
 		                    <div class="row">
 		                    	<div class="col-sm-12">
-		                    		<?php
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
+<?php
+     if(isset($_REQUEST['submit']))
 
+  {
+   $category=$_REQUEST['category'];
+   $input=$_REQUEST['input'];
 
-                                      if(isset($_REQUEST['submit']))
-                                      {
-                                      	 $category=$_REQUEST['category'];
+   if (!empty($category && $input))
 
-                                      	 
-
-                                         $query = "SELECT product_id, product_name, product_price, product_image, product_description FROM approved_product WHERE product_category='$category' ";
-										
-										 if($query_run = @mysql_query($query)) {
-											while($query_rows = mysql_fetch_assoc($query_run)) {
-										  $p_id = $query_rows['product_id'];
-											$pname = $query_rows['product_name'];
-									 		$pprice = $query_rows['product_price'];
-									 		$pimage = $query_rows['product_image'];
-									 		$pdesc = $query_rows['product_description'];
-
-                                             ?>
-
-
-                                              <div class="cause-post">
-		                    			<div class="row">
-		                    				<div class="col-sm-5">
-				                    			<div class="cause-thumb">
-													<img src="images/<?php echo $pimage; ?>" alt="">
-													<div class="hover">
-														<div class="inner">
-															<a href="single_detail.php?show_id=<?php echo $p_id; ?>" data-toggle="modal" class="btn btn-accent">Detail</a>
-														</div>
-													</div>
-												</div>
-											</div>
-											<div class="col-sm-7">
-												<div class="cause-content">
-													<div class="cause-holder">
-														<div class="clearfix">
-															<span class="raised pull-left">Price: $<?php echo $pprice; ?></span>
-															
-														</div>
-														<div class="progress">
-															<div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;"></div>
-														</div>
-													</div>
-													<h4><a href="single_detail.php?show_id=<?php echo $p_id; ?>"><?php echo $pname; ?></a></h4>
-													<span class="line-seperator"></span>
-													<p><?php echo $pdesc; ?></p><br />
-													<a href="#" class="btn btn-accent">Buy Now</a>
-												</div>
-											</div>
-			                    		</div>
-		                    		</div>		
-												
-
-
-
-
-
-                                         <?php
-									          }
-                                        
-
-          
-                                      	}
-
-                                      }
-
-                                         else
-                                         { 
-=======
->>>>>>> parent of 39975a1... Product Searching
-=======
->>>>>>> parent of 39975a1... Product Searching
-=======
->>>>>>> parent of 39975a1... Product Searching
-=======
->>>>>>> parent of 39975a1... Product Searching
-=======
->>>>>>> parent of 39975a1... Product Searching
-										$query = "SELECT product_id, product_name, product_price, product_image, product_description FROM approved_product";
-										
-										if($query_run = @mysql_query($query)) {
-											while($query_rows = mysql_fetch_assoc($query_run)) {
-												$p_id = $query_rows['product_id'];
-												$pname = $query_rows['product_name'];
-												$pprice = $query_rows['product_price'];
-												$pimage = $query_rows['product_image'];
-												$pdesc = $query_rows['product_description'];
+   {
+ 
+   
+  $query = "SELECT product_id, product_name, product_price, product_image, product_description FROM approved_product where product_category='$category' AND product_name='$input'";
+  $query_run = mysql_query($query);
+  while($query_rows = mysql_fetch_assoc($query_run)){
+   $p_id = $query_rows['product_id'];
+    $pname = $query_rows['product_name'];
+	$pprice = $query_rows['product_price'];
+	$pimage = $query_rows['product_image'];
+	$pdesc = $query_rows['product_description'];
 									?>
 										<div class="cause-post">
 		                    			<div class="row">
@@ -414,12 +247,116 @@ session_start();
 		                    		</div>		
 												
 												
-									<?php		
-											}
-										} else {
-											echo mysql_error();
-										}
+<?php		
+}	
+                                      
+ }
+   else
+	    {  $query = "SELECT product_id, product_name, product_price, product_image, product_description FROM approved_product where product_name='$input' or product_category='$category'";
+			$query_run = mysql_query($query);
+      while($query_rows = mysql_fetch_assoc($query_run)){
+			$p_id = $query_rows['product_id'];
+			$pname = $query_rows['product_name'];
+		  $pprice = $query_rows['product_price'];
+		$pimage = $query_rows['product_image'];
+		$pdesc = $query_rows['product_description'];
+									
+
 									?>
+										<div class="cause-post">
+		                    			<div class="row">
+		                    				<div class="col-sm-5">
+				                    			<div class="cause-thumb">
+													<img src="images/<?php echo $pimage; ?>" alt="">
+													<div class="hover">
+														<div class="inner">
+															<a href="single_detail.php?show_id=<?php echo $p_id; ?>" data-toggle="modal" class="btn btn-accent">Detail</a>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="col-sm-7">
+												<div class="cause-content">
+													<div class="cause-holder">
+														<div class="clearfix">
+															<span class="raised pull-left">Price: $<?php echo $pprice; ?></span>
+															
+														</div>
+														<div class="progress">
+															<div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;"></div>
+														</div>
+													</div>
+													<h4><a href="single_detail.php?show_id=<?php echo $p_id; ?>"><?php echo $pname; ?></a></h4>
+													<span class="line-seperator"></span>
+													<p><?php echo $pdesc; ?></p><br />
+													<a href="#" class="btn btn-accent">Buy Now</a>
+												</div>
+											</div>
+			                    		</div>
+		                    		</div>		
+		<?php		
+		 }	
+                                          
+                                         
+	    }
+
+
+      }                 
+  else{
+
+$query = "SELECT product_id, product_name, product_price, product_image, product_description FROM approved_product ";
+										
+ $query_run = mysql_query($query);
+
+
+while($query_rows = mysql_fetch_assoc($query_run))
+
+	{
+	$p_id = $query_rows['product_id'];
+	$pname = $query_rows['product_name'];
+	$pprice = $query_rows['product_price'];
+   $pimage = $query_rows['product_image'];
+  $pdesc = $query_rows['product_description'];
+									
+
+									?>
+										<div class="cause-post">
+		                    			<div class="row">
+		                    				<div class="col-sm-5">
+				                    			<div class="cause-thumb">
+													<img src="images/<?php echo $pimage; ?>" alt="">
+													<div class="hover">
+														<div class="inner">
+															<a href="single_detail.php?show_id=<?php echo $p_id; ?>" data-toggle="modal" class="btn btn-accent">Detail</a>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="col-sm-7">
+												<div class="cause-content">
+													<div class="cause-holder">
+														<div class="clearfix">
+															<span class="raised pull-left">Price: $<?php echo $pprice; ?></span>
+															
+														</div>
+														<div class="progress">
+															<div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;"></div>
+														</div>
+													</div>
+													<h4><a href="single_detail.php?show_id=<?php echo $p_id; ?>"><?php echo $pname; ?></a></h4>
+													<span class="line-seperator"></span>
+													<p><?php echo $pdesc; ?></p><br />
+													<a href="#" class="btn btn-accent">Buy Now</a>
+												</div>
+											</div>
+			                    		</div>
+		                    		</div>		
+												
+												
+<?php		
+	}         
+	}
+   ?>  
 									
 		                    		
 		                    	</div>
@@ -477,7 +414,7 @@ session_start();
                     				<?php
 										$query1 = "SELECT product_id, product_category FROM approved_product";
 										
-										if($query1_run = @mysql_query($query1)) {
+										if($query1_run = mysql_query($query1)) {
 											while($query1_rows = mysql_fetch_assoc($query1_run)) {
 												$pid = $query1_rows['product_id'];
 												$pcategory = $query1_rows['product_category'];
@@ -849,11 +786,6 @@ session_start();
 
 
        <script type="text/javascript" src="assets/js/jquery-1.2.6.min.js"></script>
-      <script type="text/javascript" src="assets/js/jquery.scrollTo-min.js"></script>
-      <script type="text/javascript" src="assets/js/jquery.defaultvalue.js"></script>
-     <script type="text/javascript" src="assets/js/jquery.min.js"></script>
-     <script type="text/javascript" src="assets/js/jquery.ui.min.js"></script>
-
 
 
 <SCRIPT type="text/javascript">
@@ -911,64 +843,7 @@ else
 });
 
 
-</script>
-
-
-
-<SCRIPT type="text/javascript">
-
-pic1 = new Image(16, 16); 
-pic1.src = "images/loader.gif";
-
-$(document).ready(function(){
-
-$("#input_user").change(function() { 
-var input_user = $("#input_user").val();
- //alert(input_user);
-
-if(input_user.length >= 2)
-{
-
-    $.ajax({  
-    type: "POST",  
-    url: "searching.php",  
-    data: "input_user="+ input_user,
-    success: function(msg){  
-   
-   $("#status").ajaxComplete(function(event, request, settings){ 
-
-	if(msg == 'OK')
-	{ 
-	}  
-	else  
-	{  
-		
-		$(this).html(msg);
-	}  
-   
-   });
-
- } 
-   
-  }); 
-
-}
-else
-	{
-	$("#status").html('<font color="red">The username should have at least <strong>2</strong> characters.</font>');
-	$("#username").removeClass('object_ok'); // if necessary
-	$("#username").addClass("object_error");
-	}
-
-});
-
-});
-
-</script>
-
-
-
-  <div id="status"></div>
+</SCRIPT>
 
 	</body>
 
