@@ -1,4 +1,6 @@
 
+hi
+
 <?php 
 session_start();
 ?>

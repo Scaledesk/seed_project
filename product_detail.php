@@ -149,15 +149,20 @@ session_start();
                 		<div class="main-content causes-list">
                 			<div class="row">
 		                		<div class="col-sm-12">
+<<<<<<< HEAD
 
 
                                          <form  method="post">
 			                        
+=======
+			                        <form id="causes-search" class="select-group">
+>>>>>>> parent of 39975a1... Product Searching
 			                            <div class="row">
 			                                <div class="col-md-4">
 			                                    <input name="input_user" id="input_user"placeholder="Type your keyword..."/>
 			                                </div>
 			                                <div class="col-md-4">
+<<<<<<< HEAD
 			                                   <!--  <select onchange="jump(this)" name="category" style="padding:14px!important;"> -->
                                                 <select id="category" name="category" style="padding:14px!important;">
 
@@ -180,17 +185,44 @@ session_start();
 												?>
 											
                                                 
+=======
+			                                    <select onchange="jump(this)" name="category" style="padding:14px!important;">
+			                                        <option value="1" selected="">Choose Categories </option>
+			                                        <option value="1">Animals </option>
+			                                        <option value="2">Arts &amp; Culture </option>
+			                                        <option value="3">Children &amp; Youth </option>
+			                                        <option value="4">Community </option>
+			                                        <option value="5">Crime Prevention </option>
+			                                        <option value="6">Disabled </option>
+			                                        <option value="7">Disaster Relief </option>
+			                                        <option value="8">Education </option>
+			                                        <option value="9">Elderly </option>
+			                                        <option value="10">Environment </option>
+			                                        <option value="11">Health &amp; Wellness </option>
+			                                        <option value="12">Homeless </option>
+			                                        <option value="13">Human Rights </option>
+			                                        <option value="14">Hunger &amp; Poverty </option>
+			                                        <option value="15">Overseas Aid </option>
+			                                        <option value="16">Peace </option>
+			                                        <option value="17">Sports &amp; Rec. </option>
+			                                        <option value="18">Substance Abuse</option>
+			                                        <option value="19">Women </option>
+>>>>>>> parent of 39975a1... Product Searching
 			                                    </select>
 			                                </div>
 
 			                             <div class="col-md-2">  <input type="text" name="min" placeholder="Min Price"/></div>
 			                              <div class="col-md-2">  <input type="text" name="max" placeholder="Max Price"/></div>
 			                                <div class="col-md-4">
+<<<<<<< HEAD
 
                                                 <input type="button" id="submit"name="s_submit"class="btn btn-accent s_submit" value="Explore Now">
 
 			                                   
 			                                    
+=======
+			                                    <button class="btn btn-accent">Explore Now</button>
+>>>>>>> parent of 39975a1... Product Searching
 			                                </div>
 			                            </div>
 			                         </form>
@@ -199,6 +231,7 @@ session_start();
 		                    <div class="row">
 		                    	<div class="col-sm-12">
 		                    		<?php
+<<<<<<< HEAD
 
 
                                       if(isset($_REQUEST['submit']))
@@ -268,19 +301,17 @@ session_start();
 
                                          else
                                          { 
+=======
+>>>>>>> parent of 39975a1... Product Searching
 										$query = "SELECT product_id, product_name, product_price, product_image, product_description FROM approved_product";
 										
-										if($query_run = mysql_query($query)) {
+										if($query_run = @mysql_query($query)) {
 											while($query_rows = mysql_fetch_assoc($query_run)) {
 												$p_id = $query_rows['product_id'];
 												$pname = $query_rows['product_name'];
 												$pprice = $query_rows['product_price'];
 												$pimage = $query_rows['product_image'];
 												$pdesc = $query_rows['product_description'];
-									          
-									      
-
-									   
 									?>
 										<div class="cause-post">
 		                    			<div class="row">
@@ -317,15 +348,9 @@ session_start();
 												
 									<?php		
 											}
-                                       
-                                      }
-
-									 } 
-
-
-										// else {
-										// 	echo mysql_error();
-										// }
+										} else {
+											echo mysql_error();
+										}
 									?>
 									
 		                    		
