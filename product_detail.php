@@ -151,15 +151,15 @@ session_start();
 		                		<div class="col-sm-12">
 
 
-
-			                        <form id="causes-search" method="post" class="select-group" action="product_detail.php">
+                                         <form  method="post">
+			                        
 			                            <div class="row">
 			                                <div class="col-md-4">
-			                                    <input name="input" placeholder="Type your keyword..." autocomplete="off">
+			                                    <input name="input_user" id="input_user"placeholder="Type your keyword..."/>
 			                                </div>
 			                                <div class="col-md-4">
 			                                   <!--  <select onchange="jump(this)" name="category" style="padding:14px!important;"> -->
-                                                <select  name="category" style="padding:14px!important;">
+                                                <select id="category" name="category" style="padding:14px!important;">
 
 
                                                    <option>Choose Category</option>
@@ -179,36 +179,21 @@ session_start();
 													}
 												?>
 											
-
-			                          <!--               <option value="1" selected="">Choose Categories </option>
-			                                        <option value="1">Animals </option>
-			                                        <option value="2">Arts &amp; Culture </option>
-			                                        <option value="3">Children &amp; Youth </option>
-			                                        <option value="4">Community </option>
-			                                        <option value="5">Crime Prevention </option>
-			                                        <option value="6">Disabled </option>
-			                                        <option value="7">Disaster Relief </option>
-			                                        <option value="8">Education </option>
-			                                        <option value="9">Elderly </option>
-			                                        <option value="10">Environment </option>
-			                                        <option value="11">Health &amp; Wellness </option>
-			                                        <option value="12">Homeless </option>
-			                                        <option value="13">Human Rights </option>
-			                                        <option value="14">Hunger &amp; Poverty </option>
-			                                        <option value="15">Overseas Aid </option>
-			                                        <option value="16">Peace </option>
-			                                        <option value="17">Sports &amp; Rec. </option>
-			                                        <option value="18">Substance Abuse</option>
-			                                        <option value="19">Women </option> -->
+                                                
 			                                    </select>
 			                                </div>
+
+			                             <div class="col-md-2">  <input type="text" name="min" placeholder="Min Price"/></div>
+			                              <div class="col-md-2">  <input type="text" name="max" placeholder="Max Price"/></div>
 			                                <div class="col-md-4">
 
-			                                   <input type="submit" name="submit"class="btn btn-accent" value="Explore Now">
+                                                <input type="button" id="submit"name="s_submit"class="btn btn-accent s_submit" value="Explore Now">
+
+			                                   
 			                                    
 			                                </div>
 			                            </div>
-			                        </form>
+			                         </form>
 			                    </div>
 		                    </div>
 		                    <div class="row">
@@ -233,6 +218,8 @@ session_start();
 									 		$pdesc = $query_rows['product_description'];
 
                                              ?>
+
+
                                               <div class="cause-post">
 		                    			<div class="row">
 		                    				<div class="col-sm-5">
@@ -769,6 +756,11 @@ session_start();
 
 
        <script type="text/javascript" src="assets/js/jquery-1.2.6.min.js"></script>
+      <script type="text/javascript" src="assets/js/jquery.scrollTo-min.js"></script>
+      <script type="text/javascript" src="assets/js/jquery.defaultvalue.js"></script>
+     <script type="text/javascript" src="assets/js/jquery.min.js"></script>
+     <script type="text/javascript" src="assets/js/jquery.ui.min.js"></script>
+
 
 
 <SCRIPT type="text/javascript">
@@ -826,7 +818,64 @@ else
 });
 
 
-</SCRIPT>
+</script>
+
+
+
+<SCRIPT type="text/javascript">
+
+pic1 = new Image(16, 16); 
+pic1.src = "images/loader.gif";
+
+$(document).ready(function(){
+
+$("#input_user").change(function() { 
+var input_user = $("#input_user").val();
+ //alert(input_user);
+
+if(input_user.length >= 2)
+{
+
+    $.ajax({  
+    type: "POST",  
+    url: "searching.php",  
+    data: "input_user="+ input_user,
+    success: function(msg){  
+   
+   $("#status").ajaxComplete(function(event, request, settings){ 
+
+	if(msg == 'OK')
+	{ 
+	}  
+	else  
+	{  
+		
+		$(this).html(msg);
+	}  
+   
+   });
+
+ } 
+   
+  }); 
+
+}
+else
+	{
+	$("#status").html('<font color="red">The username should have at least <strong>2</strong> characters.</font>');
+	$("#username").removeClass('object_ok'); // if necessary
+	$("#username").addClass("object_error");
+	}
+
+});
+
+});
+
+</script>
+
+
+
+  <div id="status"></div>
 
 	</body>
 
