@@ -6,7 +6,7 @@ session_start();
 	}
 
 
-
+//added a comment 
 if(isset($_REQUEST['msg'])){
 include('include/massage.php');
 }
