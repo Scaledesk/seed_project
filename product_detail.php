@@ -145,7 +145,7 @@ session_start();
 		<section>
 			<div class="container">
                 <div class="row">
-                	<div class="col-md-8">
+                	<div class="col-md-12">
                 		<div class="main-content causes-list">
                 			<div class="row">
 		                		<div class="col-sm-12">
@@ -157,7 +157,7 @@ session_start();
 			                                    <input name="input" placeholder="Type your keyword..." autocomplete="off">
 			                                </div>
 			                                <div class="col-md-4">
-			                                   <select  name="category" style="padding:14px!important;">
+			                                   <select  name="category">
 
 
                                                    <option value="">Choose Category</option>
@@ -184,7 +184,7 @@ session_start();
 
 			                                </div>
 			                                <div class="col-md-4">
-			                                    <input type="submit" class="btn btn-accent"name="submit" value="Explore Now"/>
+			                                    <input type="submit" style="padding:14px!important;"class="btn btn-accent"name="submit" value="Search"/>
 			                                    
 			                                </div>
 			                            </div>
@@ -374,7 +374,7 @@ while($query_rows = mysql_fetch_assoc($query_run))
 			                </div>
 	                    </div>
                 	</div>
-                    <div class="col-md-4">
+                    <!-- <div class="col-md-4">
                     	<aside class="sidebar">
                     		<div class="widget">
                     			<h4 class="widget-title">Popular Posts</h4>
@@ -411,24 +411,12 @@ while($query_rows = mysql_fetch_assoc($query_run))
                     		<div class="widget">
                     			<h4 class="widget-title">Categories</h4>
                     			<ul class="sidebar-list">
-                    				<?php
-										$query1 = "SELECT product_id, product_category FROM approved_product";
-										
-										if($query1_run = mysql_query($query1)) {
-											while($query1_rows = mysql_fetch_assoc($query1_run)) {
-												$pid = $query1_rows['product_id'];
-												$pcategory = $query1_rows['product_category'];
-												
-												echo '<li><a href="#">'.$pcategory.'</a></li>';
-											}
-										} else {
-											echo mysql_error();
-										}
+                    				
 									?>
-									<!--<li><a href="#">Donation</a></li>
+									<li><a href="#">Donation</a></li>
                     				<li><a href="#">Fund Raising</a></li>
                     				<li><a href="#">Volunteer</a></li>
-                    				<li><a href="#">Nonprofit</a></li>-->
+                    				<li><a href="#">Nonprofit</a></li>
                     			</ul>
                     		</div>
                     		<div class="widget">
@@ -465,7 +453,7 @@ while($query_rows = mysql_fetch_assoc($query_run))
                     			<p>Chillwave YOLO photo booth readymade heirloom, art party beard shby chic scenester fap Echo Park gentrif farm-to-table dreamcatcher.</p>
                     		</div>
                     	</aside>
-                    </div>
+                    </div> -->
                 </div>
 
 			</div>
